@@ -20,7 +20,7 @@ public class SplashActivity extends Activity
             @Override
             public void run()
             {
-                Intent intent = new Intent(SplashActivity.this, UpdateActivity.class);
+                Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         }, 2500);
