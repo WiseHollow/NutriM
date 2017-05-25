@@ -22,13 +22,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="0.5"
+            android:layout_marginTop="20dp"
             >
 
             <com.github.lzyzsd.circleprogress.DonutProgress
                 android:id="@+id/donut_progress"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
-                android:layout_marginLeft="50dp"
                 app:donut_finished_color="#45C675"
                 android:layout_margin="10dp"
                 android:layout_gravity="center|center_vertical"
@@ -42,6 +42,14 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="18dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="533"
+                android:textColor="#2196F3"
+                android:gravity="center"
+                android:textSize="16dp"
                 />
 
         </LinearLayout>
