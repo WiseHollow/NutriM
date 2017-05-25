@@ -52,11 +52,14 @@
             android:text="Quantity: "
             android:textStyle="bold"
             android:textSize="20dp"/>
+
         <EditText
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:gravity="end"/>
+            android:gravity="end"
+            android:inputType="number"
+            android:singleLine="true"
+            android:text="1" />
 
     </LinearLayout>
 
