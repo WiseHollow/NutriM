@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Keywords" />
+            android:hint="Keywords"
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/updateActivity_button_search"
@@ -34,10 +35,20 @@
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/updateActivity_linearLayout_searchContents"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/updateActivity_linearLayout_searchContents"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.9"
+                android:layout_gravity="start">
+
+
+            </LinearLayout>
 
         </LinearLayout>
 

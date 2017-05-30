@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Calories: 265"/>
+
     <RadioButton
         android:id="@+id/widget_updateResult_ratioButton"
         android:layout_width="wrap_content"
