@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -103,8 +104,24 @@ public class UpdateActivity extends AppCompatActivity
             case android.R.id.home:
                 this.finish();
                 return true;
+            case R.id.action_settings:
+                finishSelection();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void finishSelection()
+    {
+        for (int i = 0; i < radioButtonList.size(); i++)
+        {
+            RadioButton radioButton = radioButtonList.get(i);
+            if (radioButton != null && radioButton.isChecked())
+            {
+                NutritionIXItem selectedItem = queryResults.get(i);
+                break;
+            }
         }
     }
 
