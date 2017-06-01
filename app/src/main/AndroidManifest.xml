@@ -26,6 +26,8 @@
         <activity android:name=".activities.UpdateActivity"/>
         <activity android:name=".activities.NewAccountActivity">
         </activity>
+        <activity android:name=".activities.MyProfileActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -52,6 +52,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+
+        findViewById(R.id.homeActivity_button_profile).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(HomeActivity.this, MyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
