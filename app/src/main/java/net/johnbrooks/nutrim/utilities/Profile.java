@@ -1,6 +1,7 @@
 package net.johnbrooks.nutrim.utilities;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -26,7 +27,6 @@ public class Profile
     public static Profile createProfile(String name, Date birthday, int weightKg, int heightCm)
     {
         profile = new Profile(name, birthday, weightKg, heightCm);
-        profile.save();
         return profile;
     }
     public static Profile loadProfile() throws ProfileLoadException
@@ -36,7 +36,7 @@ public class Profile
             Log.d("Profile", "Failed to load profile. LatestContextWrapper is null.");
             return null;
         }
-        SharedPreferences preferences = MyApplicationContexts.getLatestContextWrapper(null).getSharedPreferences("profile", Context.MODE_PRIVATE);
+        SharedPreferences preferences = MyApplicationContexts.getSharedPreferences();
 
         String fullName = preferences.getString("fullName", null);
         int weightKg = preferences.getInt("weight", 0);
@@ -48,8 +48,8 @@ public class Profile
             throw new ProfileLoadException();
         }
 
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date birthday = null;
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Date birthday;
         try
         {
             birthday = dateFormat.parse(birthdayString);
@@ -148,14 +148,14 @@ public class Profile
         return (int) (10 * weightKg + 6.25f * heightCm - 5 * getAge() + 5);
     }
 
-    public void save()
+    public void save(ContextWrapper contextWrapper)
     {
-        if (MyApplicationContexts.getLatestContextWrapper(null) == null)
+        if (MyApplicationContexts.getLatestContextWrapper(contextWrapper) == null)
         {
             Log.d("Profile", "Failed to load profile. LatestContextWrapper is null.");
             return;
         }
-        SharedPreferences preferences = MyApplicationContexts.getLatestContextWrapper(null).getSharedPreferences("profile", Context.MODE_PRIVATE);
+        SharedPreferences preferences = MyApplicationContexts.getSharedPreferences();
         SharedPreferences.Editor editor = preferences.edit();
 
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -165,5 +165,7 @@ public class Profile
         editor.putInt("height", getHeightCm());
         editor.putInt("weight", getWeightKg());
         editor.putString("birthday", birthdayString);
+
+        editor.commit();
     }
 }

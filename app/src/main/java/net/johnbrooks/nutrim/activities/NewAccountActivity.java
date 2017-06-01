@@ -67,9 +67,9 @@ public class NewAccountActivity extends AppCompatActivity
                     Date birthday = calendar.getTime();
 
                     int weightKg = (int) (Integer.parseInt(et_weight.getText().toString()) * 0.45359237f);
-                    int heightCm = (int) (Integer.parseInt(et_height.getText().toString()) * 0.393701f);
+                    int heightCm = (int) (Integer.parseInt(et_height.getText().toString()) / 0.393701f);
 
-                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                     String birthdayString = dateFormat.format(birthday);
 
                     Log.d(NewAccountActivity.class.getSimpleName(), "Saving profile...");
@@ -78,7 +78,8 @@ public class NewAccountActivity extends AppCompatActivity
                     Log.d(NewAccountActivity.class.getSimpleName(), "Weight (kg): " + weightKg);
                     Log.d(NewAccountActivity.class.getSimpleName(), "Birthday: " + birthdayString);
 
-                    Profile.createProfile(et_fullname.getText().toString(), birthday, weightKg, heightCm);
+                    Profile profile = Profile.createProfile(et_fullname.getText().toString(), birthday, weightKg, heightCm);
+                    profile.save(NewAccountActivity.this);
                     Intent intent = new Intent(NewAccountActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
@@ -154,9 +155,11 @@ public class NewAccountActivity extends AppCompatActivity
                         @Override
                         public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth)
                         {
-                            if (year != pickedYear)
+                            if (year != pickedYear || monthOfYear != pickedMonth || dayOfMonth != pickedDay)
                             {
-                                pickedYear = year;
+                                pickedYear = year ;
+                                pickedMonth = monthOfYear;
+                                pickedDay = dayOfMonth;
                                 return;
                             }
 
@@ -248,7 +251,8 @@ public class NewAccountActivity extends AppCompatActivity
         long requirement = TimeUnit.MILLISECONDS.convert(13 * 365, TimeUnit.DAYS);
         Log.d(NewAccountActivity.class.getSimpleName(), "Requirement: " + requirement);
 
-        et_birthday.setText(pickedMonth + "/" + pickedDay + "/" + pickedYear);
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        et_birthday.setText(dateFormat.format(date));
 
         if (new Date().getTime() - date.getTime() < requirement)
         {

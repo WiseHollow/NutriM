@@ -1,7 +1,8 @@
 package net.johnbrooks.nutrim.utilities;
 
-import android.app.Activity;
 import android.content.ContextWrapper;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * Created by John on 6/1/2017.
@@ -10,10 +11,15 @@ import android.content.ContextWrapper;
 public class MyApplicationContexts
 {
     private static ContextWrapper latestContextWrapper;
-    public static ContextWrapper getLatestContextWrapper(Activity activity)
+    public static ContextWrapper getLatestContextWrapper(ContextWrapper contextWrapper)
     {
-        if (activity != null)
-            latestContextWrapper = activity;
+        if (contextWrapper != null)
+            latestContextWrapper = contextWrapper;
         return latestContextWrapper;
+    }
+    public static SharedPreferences getSharedPreferences()
+    {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(latestContextWrapper.getApplicationContext());
+        return sharedPreferences;
     }
 }
