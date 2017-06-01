@@ -1,7 +1,5 @@
 package net.johnbrooks.nutrim;
 
-import android.app.DatePickerDialog;
-
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +14,11 @@ public class Profile
     {
         return profile;
     }
+    public static Profile createProfile(String name, Date birthday, int weightKg, int heightCm)
+    {
+        profile = new Profile(name, birthday, weightKg, heightCm);
+        return profile;
+    }
 
     private String name;
     private Date birthday;
@@ -24,7 +27,7 @@ public class Profile
 
     private int caloriesToday;
 
-    public Profile(String name, Date birthday, int weightKg, int heightCm)
+    private Profile(String name, Date birthday, int weightKg, int heightCm)
     {
         this.name = name;
         this.birthday = birthday;
