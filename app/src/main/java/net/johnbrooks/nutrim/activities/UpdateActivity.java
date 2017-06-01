@@ -1,4 +1,4 @@
-package net.johnbrooks.nutrim;
+package net.johnbrooks.nutrim.activities;
 
 import android.content.Context;
 import android.support.v7.app.ActionBar;
@@ -10,12 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 import net.johnbrooks.nutrim.wrapper.NutritionIXQuery;
 

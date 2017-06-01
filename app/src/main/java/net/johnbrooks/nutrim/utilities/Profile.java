@@ -1,4 +1,4 @@
-package net.johnbrooks.nutrim;
+package net.johnbrooks.nutrim.utilities;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;

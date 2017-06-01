@@ -20,7 +20,7 @@ android {
 }
 
 repositories {
-    maven{
+    maven {
         url 'https://raw.github.com/zeeshanejaz/unirest-android/mvn-repo'
     }
 }
@@ -30,11 +30,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //compile 'com.mashape.unirest:unirest-android:1.0+'
+    compile files('E:/Full Sail University/Homework/AndroidStudioProjects/NutriM/libs/unirest-java-1.3.2-SNAPSHOT-withDependency-ShadedForAndroid.jar')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
-    //compile 'com.mashape.unirest:unirest-android:1.0+'
     testCompile 'junit:junit:4.12'
-    compile files('E:/Full Sail University/Homework/AndroidStudioProjects/NutriM/libs/unirest-java-1.3.2-SNAPSHOT-withDependency-ShadedForAndroid.jar')
 }

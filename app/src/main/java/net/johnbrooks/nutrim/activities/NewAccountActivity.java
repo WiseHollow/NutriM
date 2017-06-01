@@ -1,0 +1,249 @@
+package net.johnbrooks.nutrim.activities;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Intent;
+import android.nfc.FormatException;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.utilities.Profile;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+public class NewAccountActivity extends AppCompatActivity
+{
+    private EditText et_fullname;
+    private EditText et_weight;
+    private EditText et_height;
+    private EditText et_birthday;
+
+    private ImageView iv_fullname;
+    private ImageView iv_weight;
+    private ImageView iv_height;
+    private ImageView iv_birthday;
+
+    private int pickedYear;
+    private int pickedMonth;
+    private int pickedDay;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_account);
+
+        et_fullname = (EditText) findViewById(R.id.newAccountActivity_editText_fullname);
+        et_weight = (EditText) findViewById(R.id.newAccountActivity_editText_weightLbs);
+        et_height = (EditText) findViewById(R.id.newAccountActivity_editText_heightInches);
+        et_birthday = (EditText) findViewById(R.id.newAccountActivity_editText_birthday);
+
+        iv_fullname = (ImageView) findViewById(R.id.newAccountActivity_imageView_fullname);
+        iv_weight = (ImageView) findViewById(R.id.newAccountActivity_imageView_weightLbs);
+        iv_height = (ImageView) findViewById(R.id.newAccountActivity_imageView_heightInches);
+        iv_birthday = (ImageView) findViewById(R.id.newAccountActivity_imageView_birthday);
+
+        findViewById(R.id.newAccountActivity_button_finish).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (checkFullName() && checkWeight() && checkHeight() && checkBirthday())
+                {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(pickedYear, pickedMonth, pickedDay);
+                    Date birthday = calendar.getTime();
+
+                    Profile.createProfile(et_fullname.getText().toString(), birthday, Integer.parseInt(et_weight.getText().toString()), Integer.parseInt(et_height.getText().toString()));
+                    Intent intent = new Intent(NewAccountActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(NewAccountActivity.this);
+                    dlgAlert.setMessage("Please take a quick moment to fill out the fields before continuing.");
+                    dlgAlert.setTitle("Whoops!");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+                }
+            }
+        });
+
+        et_fullname.setOnKeyListener(new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                checkFullName();
+                return false;
+            }
+        });
+
+        et_height.setOnKeyListener(new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                checkHeight();
+                return false;
+            }
+        });
+
+        et_weight.setOnKeyListener(new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                checkWeight();
+                return false;
+            }
+        });
+
+        //et_birthday.setEnabled(false);
+        et_birthday.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (hasFocus)
+                {
+                    Log.d(NewAccountActivity.class.getSimpleName(), "Opening Date Picker...");
+                    et_birthday.clearFocus();
+
+                    Calendar c = Calendar.getInstance();
+                    int mYear = c.get(Calendar.YEAR);
+                    int mMonth = c.get(Calendar.MONTH);
+                    int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                    pickedYear = mYear;
+
+                    final Dialog dpDialog = new Dialog(NewAccountActivity.this);
+                    dpDialog.setContentView(R.layout.dialog_birthday);
+                    dpDialog.setTitle("Birthday Picker");
+                    dpDialog.show();
+
+                    DatePicker datePicker = (DatePicker) dpDialog.findViewById(R.id.dialog_dp);
+                    datePicker.init(mYear, mMonth, mDay, new DatePicker.OnDateChangedListener()
+                    {
+                        @Override
+                        public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+                        {
+                            if (year != pickedYear)
+                            {
+                                pickedYear = year;
+                                return;
+                            }
+
+                            pickedYear = year;
+                            pickedMonth = monthOfYear;
+                            pickedDay = dayOfMonth;
+
+
+                            Log.d(NewAccountActivity.class.getSimpleName(), "Birthday Changed to: " + pickedMonth + "/" + pickedDay + "/" + pickedYear);
+                            dpDialog.cancel();
+                            checkBirthday();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private boolean checkFullName()
+    {
+        if (et_fullname.getText().toString().length() <= 3)
+        {
+            iv_fullname.setBackgroundResource(R.drawable.ic_highlight_off_black_24dp);
+            return false;
+        }
+        else
+        {
+            iv_fullname.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
+            return true;
+        }
+    }
+
+    private boolean checkWeight()
+    {
+        int weight;
+        try
+        {
+            weight = Integer.parseInt(et_weight.getText().toString());
+        }
+        catch(NumberFormatException ex)
+        {
+            Log.d(NewAccountActivity.class.getSimpleName(), "Could not parse int from et_weight");
+            return false;
+        }
+
+        if (weight < 50)
+        {
+            iv_weight.setBackgroundResource(R.drawable.ic_highlight_off_black_24dp);
+            return false;
+        }
+        else
+        {
+            iv_weight.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
+            return true;
+        }
+    }
+
+    private boolean checkHeight()
+    {
+        int height;
+        try
+        {
+            height = Integer.parseInt(et_height.getText().toString());
+        }
+        catch(NumberFormatException ex)
+        {
+            Log.d(NewAccountActivity.class.getSimpleName(), "Could not parse int from et_height");
+            return false;
+        }
+
+        if (height < 36)
+        {
+            iv_height.setBackgroundResource(R.drawable.ic_highlight_off_black_24dp);
+            return false;
+        }
+        else
+        {
+            iv_height.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
+            return true;
+        }
+    }
+
+    private boolean checkBirthday()
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(pickedYear, pickedMonth, pickedDay);
+        Date date = calendar.getTime();
+
+        long requirement = TimeUnit.MILLISECONDS.convert(13 * 365, TimeUnit.DAYS);
+        Log.d(NewAccountActivity.class.getSimpleName(), "Requirement: " + requirement);
+
+        et_birthday.setText(pickedMonth + "/" + pickedDay + "/" + pickedYear);
+
+        if (new Date().getTime() - date.getTime() < requirement)
+        {
+            iv_birthday.setBackgroundResource(R.drawable.ic_highlight_off_black_24dp);
+            return false;
+        }
+        else
+        {
+            iv_birthday.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
+            return true;
+        }
+    }
+}

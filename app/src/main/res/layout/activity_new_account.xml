@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.johnbrooks.nutrim.activities.NewAccountActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Getting Started"
+        android:layout_gravity="center"
+        android:textStyle="normal"
+        android:textSize="32dp"
+        android:layout_margin="30dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                >
+
+                <EditText
+                    android:id="@+id/newAccountActivity_editText_fullname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Full Name"
+                    android:layout_weight="0.9"
+                    android:layout_marginRight="20dp"
+                    android:singleLine="true"
+                    />
+
+                <ImageView
+                    android:id="@+id/newAccountActivity_imageView_fullname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                >
+
+                <EditText
+                    android:id="@+id/newAccountActivity_editText_weightLbs"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:hint="Weight (lbs)"
+                    android:singleLine="true"
+                    android:inputType="number"/>
+
+                <ImageView
+                    android:id="@+id/newAccountActivity_imageView_weightLbs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_alignParentRight="true"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                >
+
+                <EditText
+                    android:id="@+id/newAccountActivity_editText_heightInches"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:hint="Height (Inch)"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:layout_gravity="end"
+                    />
+
+                <ImageView
+                    android:id="@+id/newAccountActivity_imageView_heightInches"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_alignParentRight="true"
+                    />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                >
+
+                <EditText
+                    android:id="@+id/newAccountActivity_editText_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="0.9"
+                    android:hint="Birthday (MM,DD,YYYY)"
+                    android:singleLine="true"/>
+
+                <ImageView
+                    android:id="@+id/newAccountActivity_imageView_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/newAccountActivity_button_finish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:textColor="#fff"
+                android:text="Let's Go"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

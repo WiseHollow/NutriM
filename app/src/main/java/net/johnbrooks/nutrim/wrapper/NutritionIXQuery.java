@@ -1,16 +1,13 @@
 package net.johnbrooks.nutrim.wrapper;
 
 import android.os.AsyncTask;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import net.johnbrooks.nutrim.R;
-import net.johnbrooks.nutrim.UpdateActivity;
+import net.johnbrooks.nutrim.activities.UpdateActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
