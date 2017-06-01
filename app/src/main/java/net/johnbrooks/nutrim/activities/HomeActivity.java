@@ -13,9 +13,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
 
-public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+{
+    private static HomeActivity instance;
+    public static HomeActivity getInstance()
+    {
+        return instance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,6 +39,9 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        instance = this;
+        MyApplicationContexts.getLatestContextWrapper(HomeActivity.this);
 
         findViewById(R.id.homeActivity_button_update).setOnClickListener(new View.OnClickListener()
         {

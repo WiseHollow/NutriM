@@ -3,7 +3,6 @@ package net.johnbrooks.nutrim.activities;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.nfc.FormatException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
 import net.johnbrooks.nutrim.utilities.Profile;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -41,6 +43,7 @@ public class NewAccountActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_account);
+        MyApplicationContexts.getLatestContextWrapper(NewAccountActivity.this);
 
         et_fullname = (EditText) findViewById(R.id.newAccountActivity_editText_fullname);
         et_weight = (EditText) findViewById(R.id.newAccountActivity_editText_weightLbs);
@@ -63,7 +66,19 @@ public class NewAccountActivity extends AppCompatActivity
                     calendar.set(pickedYear, pickedMonth, pickedDay);
                     Date birthday = calendar.getTime();
 
-                    Profile.createProfile(et_fullname.getText().toString(), birthday, Integer.parseInt(et_weight.getText().toString()), Integer.parseInt(et_height.getText().toString()));
+                    int weightKg = (int) (Integer.parseInt(et_weight.getText().toString()) * 0.45359237f);
+                    int heightCm = (int) (Integer.parseInt(et_height.getText().toString()) * 0.393701f);
+
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String birthdayString = dateFormat.format(birthday);
+
+                    Log.d(NewAccountActivity.class.getSimpleName(), "Saving profile...");
+                    Log.d(NewAccountActivity.class.getSimpleName(), "Full name: " + et_fullname.getText().toString());
+                    Log.d(NewAccountActivity.class.getSimpleName(), "Height (cm): " + heightCm);
+                    Log.d(NewAccountActivity.class.getSimpleName(), "Weight (kg): " + weightKg);
+                    Log.d(NewAccountActivity.class.getSimpleName(), "Birthday: " + birthdayString);
+
+                    Profile.createProfile(et_fullname.getText().toString(), birthday, weightKg, heightCm);
                     Intent intent = new Intent(NewAccountActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();

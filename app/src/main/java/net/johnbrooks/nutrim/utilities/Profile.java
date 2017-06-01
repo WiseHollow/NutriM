@@ -1,5 +1,14 @@
 package net.johnbrooks.nutrim.utilities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
+import net.johnbrooks.nutrim.ProfileLoadException;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -17,33 +26,67 @@ public class Profile
     public static Profile createProfile(String name, Date birthday, int weightKg, int heightCm)
     {
         profile = new Profile(name, birthday, weightKg, heightCm);
+        profile.save();
+        return profile;
+    }
+    public static Profile loadProfile() throws ProfileLoadException
+    {
+        if (MyApplicationContexts.getLatestContextWrapper(null) == null)
+        {
+            Log.d("Profile", "Failed to load profile. LatestContextWrapper is null.");
+            return null;
+        }
+        SharedPreferences preferences = MyApplicationContexts.getLatestContextWrapper(null).getSharedPreferences("profile", Context.MODE_PRIVATE);
+
+        String fullName = preferences.getString("fullName", null);
+        int weightKg = preferences.getInt("weight", 0);
+        int heightCm = preferences.getInt("height", 0);
+        String birthdayString = preferences.getString("birthday", null);
+
+        if (fullName == null || birthdayString == null)
+        {
+            throw new ProfileLoadException();
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date birthday = null;
+        try
+        {
+            birthday = dateFormat.parse(birthdayString);
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+
+        profile = new Profile(fullName, birthday, weightKg, heightCm);
         return profile;
     }
 
-    private String name;
+    private String fullName;
     private Date birthday;
     private int weightKg;
     private int heightCm;
 
     private int caloriesToday;
 
-    private Profile(String name, Date birthday, int weightKg, int heightCm)
+    private Profile(String fullName, Date birthday, int weightKg, int heightCm)
     {
-        this.name = name;
+        this.fullName = fullName;
         this.birthday = birthday;
         this.weightKg = weightKg;
         this.heightCm = heightCm;
         this.caloriesToday = 0;
     }
 
-    public String getName()
+    public String getFullName()
     {
-        return name;
+        return fullName;
     }
 
-    public void setName(String name)
+    public void setFullName(String fullName)
     {
-        this.name = name;
+        this.fullName = fullName;
     }
 
     public Date getBirthday()
@@ -103,5 +146,24 @@ public class Profile
     public int calculateDailyCalorieNeeds()
     {
         return (int) (10 * weightKg + 6.25f * heightCm - 5 * getAge() + 5);
+    }
+
+    public void save()
+    {
+        if (MyApplicationContexts.getLatestContextWrapper(null) == null)
+        {
+            Log.d("Profile", "Failed to load profile. LatestContextWrapper is null.");
+            return;
+        }
+        SharedPreferences preferences = MyApplicationContexts.getLatestContextWrapper(null).getSharedPreferences("profile", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String birthdayString = dateFormat.format(birthday);
+
+        editor.putString("fullName", getFullName());
+        editor.putInt("height", getHeightCm());
+        editor.putInt("weight", getWeightKg());
+        editor.putString("birthday", birthdayString);
     }
 }
