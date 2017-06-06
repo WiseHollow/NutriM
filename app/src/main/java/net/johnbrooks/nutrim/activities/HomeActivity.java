@@ -112,11 +112,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     {
                         try
                         {
+                            dp_caloriesProgress.setProgress(0);
                             TaskUpdateProgressBar performBackgroundTask = new TaskUpdateProgressBar(progress, dp_caloriesProgress);
                             // PerformBackgroundTask this class is the class that extends AsynchTask
                             performBackgroundTask.execute();
                         } catch (Exception e)
                         {
+                            dp_caloriesProgress.setProgress(progress);
                             e.printStackTrace();
                         }
                     }
