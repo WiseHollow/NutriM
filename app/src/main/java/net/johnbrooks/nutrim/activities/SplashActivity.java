@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 
-import net.johnbrooks.nutrim.ProfileLoadException;
+import net.johnbrooks.nutrim.utilities.ProfileLoadException;
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
 import net.johnbrooks.nutrim.utilities.Profile;

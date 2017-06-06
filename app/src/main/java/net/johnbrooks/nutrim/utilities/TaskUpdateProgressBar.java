@@ -22,8 +22,6 @@ public class TaskUpdateProgressBar extends AsyncTask<String, Void, Void>
     @Override
     protected Void doInBackground(String... params)
     {
-
-
         long nextTick = System.currentTimeMillis() + 500;
 
         while (System.currentTimeMillis() < nextTick)
@@ -33,7 +31,7 @@ public class TaskUpdateProgressBar extends AsyncTask<String, Void, Void>
 
         nextTick = System.currentTimeMillis() + 25;
 
-        for (int i = 0; i < progress + 1; i++)
+        for (int i = 0; i < progress; i++)
         {
             while(System.currentTimeMillis() < nextTick)
             {
@@ -56,6 +54,6 @@ public class TaskUpdateProgressBar extends AsyncTask<String, Void, Void>
     @Override
     protected void onPostExecute(Void v)
     {
-
+        progressBar.setProgress(progress);
     }
 }

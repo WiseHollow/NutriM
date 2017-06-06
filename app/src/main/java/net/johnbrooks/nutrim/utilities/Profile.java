@@ -1,11 +1,8 @@
 package net.johnbrooks.nutrim.utilities;
 
-import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.util.Log;
-
-import net.johnbrooks.nutrim.ProfileLoadException;
 
 import java.text.DateFormat;
 import java.text.ParseException;

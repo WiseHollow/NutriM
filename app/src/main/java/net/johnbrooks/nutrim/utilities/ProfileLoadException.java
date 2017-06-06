@@ -1,4 +1,4 @@
-package net.johnbrooks.nutrim;
+package net.johnbrooks.nutrim.utilities;
 
 /**
  * Created by John on 6/1/2017.
