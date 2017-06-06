@@ -101,6 +101,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         dp_caloriesProgress.invalidate();
 
         LinearLayout layout_consumed = (LinearLayout) findViewById(R.id.myProfileActivity_layout_foodIcons);
+        layout_consumed.removeAllViews();
         for (NutritionIXItem ixItem : Profile.getProfile().getItemsConsumed())
         {
             LinearLayout foodLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.widget_food_icon, null);
