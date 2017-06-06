@@ -10,4 +10,9 @@ public class ProfileLoadException extends Exception
     {
         super("Profile could not be loaded from file. Nothing to load.");
     }
+
+    public ProfileLoadException(String message)
+    {
+        super(message);
+    }
 }

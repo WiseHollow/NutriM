@@ -11,9 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.github.lzyzsd.circleprogress.DonutProgress;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
+import net.johnbrooks.nutrim.utilities.Profile;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -22,6 +26,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     {
         return instance;
     }
+
+    private TextView tv_caloriesToday;
+    private DonutProgress dp_caloriesProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,6 +50,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         instance = this;
         MyApplicationContexts.getLatestContextWrapper(HomeActivity.this);
 
+        tv_caloriesToday = (TextView) findViewById(R.id.homeActivity_textView_CaloriesToday);
+        dp_caloriesProgress = (DonutProgress) findViewById(R.id.donut_progress);
+        refreshCaloriesToday();
+
         findViewById(R.id.homeActivity_button_update).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -62,6 +73,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+    }
+
+    public void refreshCaloriesToday()
+    {
+        int today = Profile.getProfile().getCaloriesToday();
+        int max = Profile.getProfile().getCaloriesDailyMax();
+        tv_caloriesToday.setText(today + " / " + max);
+        if (today != 0 && max != 0)
+            dp_caloriesProgress.setProgress(100 * (int) ((float)today / (float) max));
+        else
+            dp_caloriesProgress.setProgress(0);
     }
 
     @Override

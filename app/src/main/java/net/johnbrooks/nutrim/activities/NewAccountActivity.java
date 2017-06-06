@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
@@ -34,6 +35,8 @@ public class NewAccountActivity extends AppCompatActivity
     private ImageView iv_height;
     private ImageView iv_birthday;
 
+    private Spinner s_measurementSystem;
+
     private int pickedYear;
     private int pickedMonth;
     private int pickedDay;
@@ -55,6 +58,8 @@ public class NewAccountActivity extends AppCompatActivity
         iv_height = (ImageView) findViewById(R.id.newAccountActivity_imageView_heightInches);
         iv_birthday = (ImageView) findViewById(R.id.newAccountActivity_imageView_birthday);
 
+        s_measurementSystem = (Spinner) findViewById(R.id.newAccountActivity_spinner_measurementSystem);
+
         findViewById(R.id.newAccountActivity_button_finish).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -69,6 +74,17 @@ public class NewAccountActivity extends AppCompatActivity
                     int weightKg = (int) (Integer.parseInt(et_weight.getText().toString()) * 0.45359237f);
                     int heightCm = (int) (Integer.parseInt(et_height.getText().toString()) / 0.393701f);
 
+                    Profile.MeasurementSystem measurementSystem = null;
+                    try
+                    {
+                        measurementSystem = Profile.MeasurementSystem.valueOf(s_measurementSystem.getSelectedItem().toString().toUpperCase());
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.d(NewAccountActivity.class.getSimpleName(), "Cannot convert spinner value to enum (" + s_measurementSystem.getSelectedItem().toString().toUpperCase() + ").");
+                        ex.printStackTrace();
+                    }
+
                     DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                     String birthdayString = dateFormat.format(birthday);
 
@@ -79,6 +95,8 @@ public class NewAccountActivity extends AppCompatActivity
                     Log.d(NewAccountActivity.class.getSimpleName(), "Birthday: " + birthdayString);
 
                     Profile profile = Profile.createProfile(et_fullname.getText().toString(), birthday, weightKg, heightCm);
+                    if (measurementSystem != null)
+                        profile.setMeasurementSystem(measurementSystem);
                     profile.save(NewAccountActivity.this);
                     Intent intent = new Intent(NewAccountActivity.this, HomeActivity.class);
                     startActivity(intent);

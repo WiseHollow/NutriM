@@ -32,7 +32,7 @@
                 app:donut_finished_color="#45C675"
                 android:layout_margin="10dp"
                 android:layout_gravity="center|center_vertical"
-                app:donut_progress="50"
+                app:donut_progress="0"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -44,9 +44,10 @@
                 android:textSize="18dp"
                 />
             <TextView
+                android:id="@+id/homeActivity_textView_CaloriesToday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="533"
+                android:text="0 / 0"
                 android:textColor="#2196F3"
                 android:gravity="center"
                 android:textSize="16dp"

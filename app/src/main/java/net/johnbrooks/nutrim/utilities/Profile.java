@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class Profile
 {
     private static Profile profile;
+    public static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     public static Profile getProfile()
     {
         return profile;
@@ -43,6 +44,16 @@ public class Profile
         int heightCm = preferences.getInt("height", 0);
         String birthdayString = preferences.getString("birthday", null);
 
+        MeasurementSystem measurementSystem = null;
+        try
+        {
+            measurementSystem = MeasurementSystem.valueOf(preferences.getString("measurement", "METRIC"));
+        }
+        catch (Exception ex)
+        {
+            throw new ProfileLoadException("Metric system saved is not valid.");
+        }
+
         if (fullName == null || birthdayString == null)
         {
             throw new ProfileLoadException();
@@ -60,6 +71,8 @@ public class Profile
         }
 
         profile = new Profile(fullName, birthday, weightKg, heightCm);
+        if (measurementSystem != null)
+            profile.setMeasurementSystem(measurementSystem);
         return profile;
     }
 
@@ -69,6 +82,9 @@ public class Profile
     private int heightCm;
 
     private int caloriesToday;
+    private int caloriesDailyMax;
+
+    private MeasurementSystem measurementSystem;
 
     private Profile(String fullName, Date birthday, int weightKg, int heightCm)
     {
@@ -77,6 +93,8 @@ public class Profile
         this.weightKg = weightKg;
         this.heightCm = heightCm;
         this.caloriesToday = 0;
+        this.caloriesDailyMax = calculateDailyCalorieNeeds();
+        this.measurementSystem = MeasurementSystem.METRIC;
     }
 
     public String getFullName()
@@ -134,6 +152,29 @@ public class Profile
         this.heightCm = heightCm;
     }
 
+    public int[] getFeetAndInches()
+    {
+        int[] measures = new int[2];
+        measures[0] = getHeightFeet();
+        measures[1] = getHeightCm() % measures[0];
+        return measures;
+    }
+
+    public int getHeightInches()
+    {
+        return (int) (getHeightCm() * 0.393701f);
+    }
+
+    public int getHeightFeet()
+    {
+        return (int) (getHeightCm() * 0.0328084f);
+    }
+
+    public int getWeightLbs()
+    {
+        return (int) (profile.getWeightKg() * 2.20462f);
+    }
+
     public int getAge()
     {
         Date now = new Date();
@@ -158,14 +199,34 @@ public class Profile
         SharedPreferences preferences = MyApplicationContexts.getSharedPreferences();
         SharedPreferences.Editor editor = preferences.edit();
 
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String birthdayString = dateFormat.format(birthday);
 
         editor.putString("fullName", getFullName());
         editor.putInt("height", getHeightCm());
         editor.putInt("weight", getWeightKg());
         editor.putString("birthday", birthdayString);
+        editor.putString("measurement", measurementSystem.name());
 
         editor.commit();
+    }
+
+    public int getCaloriesDailyMax()
+    {
+        return caloriesDailyMax;
+    }
+
+    public MeasurementSystem getMeasurementSystem()
+    {
+        return measurementSystem;
+    }
+
+    public void setMeasurementSystem(MeasurementSystem measurementSystem)
+    {
+        this.measurementSystem = measurementSystem;
+    }
+
+    public enum MeasurementSystem
+    {
+        METRIC, IMPERIAL
     }
 }

@@ -138,6 +138,18 @@
 
             </LinearLayout>
 
+            <Spinner
+                android:id="@+id/newAccountActivity_spinner_measurementSystem"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:entries="@array/measurementSystem"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                >
+
+            </Spinner>
+
             <Button
                 android:id="@+id/newAccountActivity_button_finish"
                 android:layout_width="match_parent"

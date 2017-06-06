@@ -43,6 +43,8 @@
                     />
 
                 <TextView
+                    android:id="@+id/myProfileActivity_tv_fullName"
+                    android:gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Value"
@@ -69,66 +71,15 @@
                     android:textStyle="bold"
                     />
 
-                <LinearLayout
+
+                <TextView
+                    android:id="@+id/myProfileActivity_tv_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_alignParentEnd="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" "
-                        android:textSize="16dp"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lbs: "
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Value"
-                            android:textSize="16dp"
-                            />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Kg: "
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Value"
-                            android:textSize="16dp"
-                            />
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:text="Value"
+                    android:textSize="16dp"
+                    android:layout_alignParentEnd="true"
+                    />
 
             </RelativeLayout>
 
@@ -149,89 +100,16 @@
                     android:textStyle="bold"
                     />
 
-                <LinearLayout
+
+
+                <TextView
+                    android:id="@+id/myProfileActivity_tv_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_alignParentEnd="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" "
-                        android:textSize="16dp"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Feet: "
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Value"
-                            android:textSize="16dp"
-                            />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Inch: "
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Value"
-                            android:textSize="16dp"
-                            />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Cm: "
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Value"
-                            android:textSize="16dp"
-                            />
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:text="Value"
+                    android:textSize="16dp"
+                    android:layout_alignParentEnd="true"
+                    />
 
             </RelativeLayout>
 
@@ -253,12 +131,14 @@
                     />
 
                 <TextView
+                    android:id="@+id/myProfileActivity_tv_birthday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:text="Value"
-                    android:layout_alignParentEnd="true"
                     android:textSize="16dp"
-                    />
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"/>
 
             </RelativeLayout>
 
@@ -280,11 +160,13 @@
                     />
 
                 <TextView
+                    android:id="@+id/myProfileActivity_tv_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Value"
                     android:layout_alignParentEnd="true"
                     android:textSize="16dp"
+                    android:layout_gravity="end"
                     />
 
             </RelativeLayout>
@@ -338,6 +220,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:layout_gravity="end"
                         >
 
                         <TextView
@@ -349,6 +232,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/myProfileActivity_tv_calories_today"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Value"
@@ -361,6 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:layout_gravity="end"
                         >
 
                         <TextView
@@ -372,6 +257,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/myProfileActivity_tv_calories_remaining"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Value"
@@ -385,6 +271,7 @@
             </RelativeLayout>
 
             <Button
+                android:id="@+id/myProfileActivity_button_editProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
