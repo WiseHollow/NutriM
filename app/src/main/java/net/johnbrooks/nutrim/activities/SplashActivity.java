@@ -20,6 +20,12 @@ public class SplashActivity extends Activity
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
 
         MyApplicationContexts.getLatestContextWrapper(SplashActivity.this);
 
@@ -35,7 +41,6 @@ public class SplashActivity extends Activity
                     intent = new Intent(SplashActivity.this, NewAccountActivity.class);
 
                 startActivity(intent);
-                finish();
             }
         }, 2500);
 

@@ -87,6 +87,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void refreshCaloriesToday()
     {
+        if (Profile.getProfile() == null)
+        {
+            if (dp_caloriesProgress != null)
+                dp_caloriesProgress.setProgress(0);
+            return;
+        }
+
         int today = Profile.getProfile().getCaloriesToday();
         int max = Profile.getProfile().getCaloriesDailyMax();
         tv_caloriesToday.setText(today + " / " + max);
@@ -145,13 +152,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    public void onBackPressed()
+    {
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //if (drawer.isDrawerOpen(GravityCompat.START)) {
+        //    drawer.closeDrawer(GravityCompat.START);
+        //} else {
+        //    super.onBackPressed();
+        //}
+        moveTaskToBack(true);
     }
 
     @Override
@@ -169,7 +178,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
+            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 

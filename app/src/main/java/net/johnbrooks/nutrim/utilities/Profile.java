@@ -4,6 +4,7 @@ import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import net.johnbrooks.nutrim.activities.HomeActivity;
 import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
 import java.text.DateFormat;
@@ -216,6 +217,44 @@ public class Profile
     public int calculateDailyCalorieNeeds()
     {
         return (int) (10 * weightKg + 6.25f * heightCm - 5 * getAge() + 5);
+    }
+
+    public void delete(ContextWrapper contextWrapper)
+    {
+        if (MyApplicationContexts.getLatestContextWrapper(contextWrapper) == null)
+        {
+            Log.d("Profile", "Failed to delete profile. LatestContextWrapper is null.");
+            return;
+        }
+
+        if (HomeActivity.getInstance() != null)
+            HomeActivity.getInstance().finish();
+
+        fullName = null;
+        caloriesToday = 0;
+        caloriesDailyMax = 0;
+        getItemsConsumed().clear();
+        itemsConsumed = null;
+        birthday = null;
+        weightKg = 0;
+        heightCm = 0;
+        latestDayUsed = null;
+        measurementSystem = null;
+        profile = null;
+
+        SharedPreferences preferences = MyApplicationContexts.getSharedPreferences();
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.remove("fullName");
+        editor.remove("height");
+        editor.remove("weight");
+        editor.remove("birthday");
+        editor.remove("measurement");
+        editor.remove("calories");
+        editor.remove("latestDayUsed");
+        editor.remove("consumed");
+
+        editor.commit();
     }
 
     public void save(ContextWrapper contextWrapper)
