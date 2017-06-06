@@ -9,6 +9,15 @@
     android:orientation="vertical"
     >
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32dp"
+        android:text="Settings"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        />
+
     <Button
         android:id="@+id/settingsActivity_button_clearFood"
         android:layout_width="match_parent"
