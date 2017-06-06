@@ -16,6 +16,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
+import net.johnbrooks.nutrim.utilities.Profile;
 import net.johnbrooks.nutrim.wrapper.NutritionIXField;
 import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 import net.johnbrooks.nutrim.wrapper.NutritionIXQuery;
@@ -26,6 +28,7 @@ import java.util.List;
 public class UpdateActivity extends AppCompatActivity
 {
     public static List<NutritionIXItem> queryResults = new ArrayList<>();
+    private NutritionIXItem selectedItem;
 
     private static UpdateActivity instance;
     public static UpdateActivity getInstance()
@@ -63,6 +66,7 @@ public class UpdateActivity extends AppCompatActivity
 
         instance = this;
         radioButtonList = new ArrayList<>();
+        selectedItem = null;
 
         et_search = (EditText) findViewById(R.id.updateActivity_editText_search);
         ll_searchContents = (LinearLayout) findViewById(R.id.updateActivity_linearLayout_searchContents);
@@ -105,25 +109,32 @@ public class UpdateActivity extends AppCompatActivity
             case android.R.id.home:
                 this.finish();
                 return true;
-            case R.id.action_settings:
-                finishSelection();
+            case R.id.action_done:
+                if (finishSelection())
+                {
+                    finish();
+                    HomeActivity.getInstance().refreshCaloriesToday();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void finishSelection()
+    private boolean finishSelection()
     {
-        for (int i = 0; i < radioButtonList.size(); i++)
+        if (selectedItem != null)
         {
-            RadioButton radioButton = radioButtonList.get(i);
-            if (radioButton != null && radioButton.isChecked())
+            Profile profile = Profile.getProfile();
+            if (profile != null)
             {
-                NutritionIXItem selectedItem = queryResults.get(i);
-                break;
+                profile.addCaloriesToday(selectedItem.getCalories());
+                profile.save(MyApplicationContexts.getLatestContextWrapper(UpdateActivity.getInstance()));
             }
+            return true;
         }
+
+        return false;
     }
 
     public void refreshList()
@@ -169,6 +180,7 @@ public class UpdateActivity extends AppCompatActivity
                                 radioButton.setChecked(false);
                         NutritionIXItem clickedItem = queryResults.get(index);
                         Log.d(UpdateActivity.class.getSimpleName(), "Clicked on " + clickedItem.getName() + "(" + index + ")");
+                        selectedItem = clickedItem;
                     }
                 });
             }

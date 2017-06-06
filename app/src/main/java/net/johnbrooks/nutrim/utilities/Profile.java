@@ -42,9 +42,10 @@ public class Profile
         String fullName = preferences.getString("fullName", null);
         int weightKg = preferences.getInt("weight", 0);
         int heightCm = preferences.getInt("height", 0);
+        int calories = preferences.getInt("calories", 0);
         String birthdayString = preferences.getString("birthday", null);
 
-        MeasurementSystem measurementSystem = null;
+        MeasurementSystem measurementSystem;
         try
         {
             measurementSystem = MeasurementSystem.valueOf(preferences.getString("measurement", "METRIC"));
@@ -71,6 +72,7 @@ public class Profile
         }
 
         profile = new Profile(fullName, birthday, weightKg, heightCm);
+        profile.setCaloriesToday(calories);
         if (measurementSystem != null)
             profile.setMeasurementSystem(measurementSystem);
         return profile;
@@ -206,6 +208,8 @@ public class Profile
         editor.putInt("weight", getWeightKg());
         editor.putString("birthday", birthdayString);
         editor.putString("measurement", measurementSystem.name());
+
+        editor.putInt("calories", getCaloriesToday());
 
         editor.commit();
     }

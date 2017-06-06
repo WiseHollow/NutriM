@@ -2,6 +2,8 @@ package net.johnbrooks.nutrim.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +20,11 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
 import net.johnbrooks.nutrim.utilities.Profile;
+import net.johnbrooks.nutrim.utilities.TaskUpdateProgressBar;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -29,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private TextView tv_caloriesToday;
     private DonutProgress dp_caloriesProgress;
+    public DonutProgress getDp_caloriesProgress() { return dp_caloriesProgress; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -81,9 +89,47 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         int max = Profile.getProfile().getCaloriesDailyMax();
         tv_caloriesToday.setText(today + " / " + max);
         if (today != 0 && max != 0)
-            dp_caloriesProgress.setProgress(100 * (int) ((float)today / (float) max));
+        {
+            int progress = (int) (100 * ((float)today / (float) max));
+            //dp_caloriesProgress.setProgress(progress);
+            applyProgress(progress);
+        }
         else
             dp_caloriesProgress.setProgress(0);
+        dp_caloriesProgress.invalidate();
+    }
+
+    public void applyProgress(final int progress)
+    {
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                handler.post(new Runnable()
+                {
+                    public void run()
+                    {
+                        try
+                        {
+                            TaskUpdateProgressBar performBackgroundTask = new TaskUpdateProgressBar(progress, dp_caloriesProgress);
+                            // PerformBackgroundTask this class is the class that extends AsynchTask
+                            performBackgroundTask.execute();
+                        } catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask, 0, 50000); //execute in every 50000 ms
+    }
+
+    public void callAsynchronousTask() {
+
     }
 
     @Override
