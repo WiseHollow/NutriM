@@ -22,7 +22,7 @@ public class NutritionIXQuery extends AsyncTask<String, Void, List<NutritionIXIt
 {
     public static NutritionIXItem getItem(String id)
     {
-        if (Network.isAccessable())
+        if (Network.isAccessible())
         {
             NutritionIXQuery query = new NutritionIXQuery(NutritionIXQueryType.GET);
             query.addArgument(id);
@@ -36,7 +36,7 @@ public class NutritionIXQuery extends AsyncTask<String, Void, List<NutritionIXIt
 
     public static void searchForItems(String keywords, NutritionIXField... fields)
     {
-        if (Network.isAccessable())
+        if (Network.isAccessible())
         {
             NutritionIXQuery query = new NutritionIXQuery(NutritionIXQuery.NutritionIXQueryType.SEARCH);
             query.addArgument(keywords);

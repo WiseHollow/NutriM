@@ -12,7 +12,7 @@ import android.os.Build;
 
 public class Network
 {
-    public static boolean isAccessable()
+    public static boolean isAccessible()
     {
         ContextWrapper context = MyApplicationContexts.getLatestContextWrapper(null);
         if (context == null)
