@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.wrapper.NutritionIXField;
 import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 import net.johnbrooks.nutrim.wrapper.NutritionIXQuery;
 
@@ -147,8 +148,10 @@ public class UpdateActivity extends AppCompatActivity
                 LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.widget_updateresult, null);
                 TextView itemName = (TextView) layout.findViewById(R.id.widget_updateResult_itemName);
                 TextView calories = (TextView) layout.findViewById(R.id.widget_updateResult_caloriesTextView);
+                TextView brand = (TextView) layout.findViewById(R.id.widget_updateResult_brandTextView);
                 itemName.setText(item.getName());
                 calories.setText("Calories: " + item.getCalories());
+                brand.setText("Brand: " + item.getBrand());
                 ll_searchContents.addView(layout);
 
                 //
@@ -182,6 +185,6 @@ public class UpdateActivity extends AppCompatActivity
 
         String keyword = et_search.getText().toString();
         et_search.setText("");
-        NutritionIXQuery.searchForItems(keyword);
+        NutritionIXQuery.searchForItems(keyword, NutritionIXField.ITEM_NAME, NutritionIXField.CALORIES, NutritionIXField.ITEM_BRAND);
     }
 }
