@@ -125,11 +125,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 50000); //execute in every 50000 ms
-    }
-
-    public void callAsynchronousTask() {
-
+        timer.schedule(doAsynchronousTask, 0); //execute in every 50000 ms
     }
 
     @Override
