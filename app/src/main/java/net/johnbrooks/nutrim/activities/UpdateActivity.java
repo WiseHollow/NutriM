@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -51,7 +52,6 @@ public class UpdateActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
-
         //
         // Prepare back button
         //
@@ -128,7 +128,7 @@ public class UpdateActivity extends AppCompatActivity
             Profile profile = Profile.getProfile();
             if (profile != null)
             {
-                profile.addCaloriesToday(selectedItem.getCalories());
+                profile.addCaloriesToday(selectedItem);
                 profile.save(MyApplicationContexts.getLatestContextWrapper(UpdateActivity.getInstance()));
             }
             return true;
@@ -157,12 +157,14 @@ public class UpdateActivity extends AppCompatActivity
                 final int index = i;
                 NutritionIXItem item = queryResults.get(i);
                 LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.widget_updateresult, null);
+                ImageView picture = (ImageView) layout.findViewById(R.id.widget_updateResult_imageView);
                 TextView itemName = (TextView) layout.findViewById(R.id.widget_updateResult_itemName);
                 TextView calories = (TextView) layout.findViewById(R.id.widget_updateResult_caloriesTextView);
                 TextView brand = (TextView) layout.findViewById(R.id.widget_updateResult_brandTextView);
                 itemName.setText(item.getName());
                 calories.setText("Calories: " + item.getCalories());
                 brand.setText("Brand: " + item.getBrand());
+                picture.setImageResource(item.getPictureID());
                 ll_searchContents.addView(layout);
 
                 //
@@ -197,6 +199,6 @@ public class UpdateActivity extends AppCompatActivity
 
         String keyword = et_search.getText().toString();
         et_search.setText("");
-        NutritionIXQuery.searchForItems(keyword, NutritionIXField.ITEM_NAME, NutritionIXField.CALORIES, NutritionIXField.ITEM_BRAND);
+        NutritionIXQuery.searchForItems(keyword, NutritionIXField.ITEM_NAME, NutritionIXField.CALORIES, NutritionIXField.ITEM_BRAND, NutritionIXField.SERVING_SIZE);
     }
 }

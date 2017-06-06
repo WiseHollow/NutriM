@@ -53,6 +53,31 @@
                 android:textSize="16dp"
                 />
 
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_vertical"
+                >
+
+                <LinearLayout
+                    android:id="@+id/myProfileActivity_layout_foodIcons"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    >
+
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
         </LinearLayout>
 
         <LinearLayout

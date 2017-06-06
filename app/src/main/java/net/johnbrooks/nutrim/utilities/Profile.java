@@ -4,10 +4,16 @@ import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -69,6 +75,16 @@ public class Profile
         }
 
         profile = new Profile(fullName, birthday, weightKg, heightCm);
+
+        Set<String> consumed = preferences.getStringSet("consumed", new HashSet<String>());
+        for (String s: consumed)
+        {
+            NutritionIXItem ixItem = NutritionIXItem.serialize(s);
+            if (ixItem != null)
+                profile.getItemsConsumed().add(ixItem);
+        }
+
+
         profile.setCaloriesToday(calories);
         if (measurementSystem != null)
             profile.setMeasurementSystem(measurementSystem);
@@ -80,6 +96,7 @@ public class Profile
     private int weightKg;
     private int heightCm;
 
+    private List<NutritionIXItem> itemsConsumed;
     private int caloriesToday;
     private int caloriesDailyMax;
 
@@ -94,6 +111,7 @@ public class Profile
         this.caloriesToday = 0;
         this.caloriesDailyMax = calculateDailyCalorieNeeds();
         this.measurementSystem = MeasurementSystem.METRIC;
+        this.itemsConsumed = new ArrayList<>();
     }
 
     public String getFullName()
@@ -121,14 +139,17 @@ public class Profile
         return caloriesToday;
     }
 
+    public List<NutritionIXItem> getItemsConsumed() { return itemsConsumed; }
+
     public void setCaloriesToday(int caloriesToday)
     {
         this.caloriesToday = caloriesToday;
     }
 
-    public void addCaloriesToday(int calories)
+    public void addCaloriesToday(NutritionIXItem item)
     {
-        caloriesToday += calories;
+        itemsConsumed.add(item);
+        caloriesToday += item.getCalories();
     }
 
     public int getWeightKg()
@@ -205,8 +226,12 @@ public class Profile
         editor.putInt("weight", getWeightKg());
         editor.putString("birthday", birthdayString);
         editor.putString("measurement", measurementSystem.name());
-
         editor.putInt("calories", getCaloriesToday());
+
+        Set<String> itemsConsumedStrings = new HashSet<>();
+        for (NutritionIXItem ixItem : itemsConsumed)
+            itemsConsumedStrings.add(ixItem.toSaveString());
+        editor.putStringSet("consumed", itemsConsumedStrings);
 
         editor.commit();
     }

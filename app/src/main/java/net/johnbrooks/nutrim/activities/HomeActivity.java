@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
@@ -20,6 +23,7 @@ import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
 import net.johnbrooks.nutrim.utilities.Profile;
 import net.johnbrooks.nutrim.utilities.TaskUpdateProgressBar;
+import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -95,6 +99,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         else
             dp_caloriesProgress.setProgress(0);
         dp_caloriesProgress.invalidate();
+
+        LinearLayout layout_consumed = (LinearLayout) findViewById(R.id.myProfileActivity_layout_foodIcons);
+        for (NutritionIXItem ixItem : Profile.getProfile().getItemsConsumed())
+        {
+            LinearLayout foodLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.widget_food_icon, null);
+            ImageView iv_food = (ImageView) foodLayout.findViewById(R.id.widget_food_icon_imageView);
+            TextView tv_calories = (TextView) foodLayout.findViewById(R.id.widget_food_icon_textView);
+            iv_food.setImageResource(ixItem.getPictureID());
+            tv_calories.setText("" + ixItem.getCalories());
+            layout_consumed.addView(foodLayout);
+        }
     }
 
     public void applyProgress(final int progress)
