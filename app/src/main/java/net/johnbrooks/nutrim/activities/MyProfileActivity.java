@@ -53,9 +53,6 @@ public class MyProfileActivity extends AppCompatActivity
             TextView tv_birthday = (TextView) findViewById(R.id.myProfileActivity_tv_birthday);
             TextView tv_age = (TextView) findViewById(R.id.myProfileActivity_tv_age);
 
-            TextView tv_calories_today = (TextView) findViewById(R.id.myProfileActivity_tv_calories_today);
-            TextView tv_calories_remaining = (TextView) findViewById(R.id.myProfileActivity_tv_calories_remaining);
-
             // set
 
             tv_fullName.setText(profile.getFullName());
@@ -74,9 +71,6 @@ public class MyProfileActivity extends AppCompatActivity
 
             tv_birthday.setText(Profile.dateFormat.format(profile.getBirthday()));
             tv_age.setText("" + profile.getAge());
-
-            tv_calories_today.setText("" + profile.getCaloriesToday());
-            tv_calories_remaining.setText("" + (profile.calculateDailyCalorieNeeds() - profile.getCaloriesToday()));
 
             return true;
         }

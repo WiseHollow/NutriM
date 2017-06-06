@@ -178,97 +178,24 @@
                 android:background="#333"
                 android:layout_margin="15dp"/>
 
-            <RelativeLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="10dp"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Calories"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" "
-                    android:layout_alignParentEnd="true"
-                    android:textSize="16dp"
-                    />
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/myProfileActivity_layout_foodIcons"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_alignParentEnd="true">
+                    >
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" "
-                        android:textSize="16dp"
-                        />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="end"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Today: "
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:id="@+id/myProfileActivity_tv_calories_today"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Value"
-                            android:textSize="16dp"
-                            />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="end"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Remaining: "
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:id="@+id/myProfileActivity_tv_calories_remaining"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Value"
-                            android:textSize="16dp"
-                            />
-
-                    </LinearLayout>
 
                 </LinearLayout>
 
-            </RelativeLayout>
+            </ScrollView>
+
+
 
             <Button
                 android:id="@+id/myProfileActivity_button_editProfile"
