@@ -8,6 +8,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import net.johnbrooks.nutrim.activities.UpdateActivity;
+import net.johnbrooks.nutrim.utilities.Network;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,20 +22,28 @@ public class NutritionIXQuery extends AsyncTask<String, Void, List<NutritionIXIt
 {
     public static NutritionIXItem getItem(String id)
     {
-        NutritionIXQuery query = new NutritionIXQuery(NutritionIXQueryType.GET);
-        query.addArgument(id);
-        HttpResponse<JsonNode> node = query.runQuery();
-        NutritionIXGetItemResponse response = new NutritionIXGetItemResponse(node);
-        return response.getBodyDetails().getItem();
+        if (Network.isAccessable())
+        {
+            NutritionIXQuery query = new NutritionIXQuery(NutritionIXQueryType.GET);
+            query.addArgument(id);
+            HttpResponse<JsonNode> node = query.runQuery();
+            NutritionIXGetItemResponse response = new NutritionIXGetItemResponse(node);
+            return response.getBodyDetails().getItem();
+        }
+        else
+            return null;
     }
 
     public static void searchForItems(String keywords, NutritionIXField... fields)
     {
-        NutritionIXQuery query = new NutritionIXQuery(NutritionIXQuery.NutritionIXQueryType.SEARCH);
-        query.addArgument(keywords);
-        for (NutritionIXField field : fields.length == 0 ? NutritionIXField.values() : fields)
-            query.addField(field);
-        query.execute();
+        if (Network.isAccessable())
+        {
+            NutritionIXQuery query = new NutritionIXQuery(NutritionIXQuery.NutritionIXQueryType.SEARCH);
+            query.addArgument(keywords);
+            for (NutritionIXField field : fields.length == 0 ? NutritionIXField.values() : fields)
+                query.addField(field);
+            query.execute();
+        }
     }
 
     private NutritionIXQueryType type;
