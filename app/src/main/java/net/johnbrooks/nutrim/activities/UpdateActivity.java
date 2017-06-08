@@ -111,10 +111,7 @@ public class UpdateActivity extends AppCompatActivity
                 return true;
             case R.id.action_done:
                 if (finishSelection())
-                {
                     finish();
-                    HomeActivity.getInstance().refreshCaloriesToday();
-                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

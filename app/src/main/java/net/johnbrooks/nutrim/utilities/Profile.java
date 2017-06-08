@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -312,12 +313,42 @@ public class Profile
         this.latestDayUsed = latestDayUsed;
     }
 
+    public int getPercentOfCaloriesConsumed()
+    {
+        float current = caloriesToday;
+        float max = caloriesDailyMax;
+
+        int percent = (int) ((current / max) * 100f);
+        return percent;
+    }
+
+    public int getHoursLeftOfDay()
+    {
+        long timeNow = Calendar.getInstance().getTimeInMillis();
+
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.set(tomorrow.get(Calendar.YEAR), tomorrow.get(Calendar.MONTH), tomorrow.get(Calendar.DAY_OF_MONTH) + 1);
+        tomorrow.set(Calendar.HOUR_OF_DAY, 0);
+        tomorrow.set(Calendar.MINUTE, 0);
+        tomorrow.set(Calendar.SECOND, 0);
+
+        long timeLeft = tomorrow.getTimeInMillis() - timeNow;
+        return (int) TimeUnit.MILLISECONDS.toHours(timeLeft);
+    }
+
     public String getTip()
     {
         String tip = "";
 
+        int hoursLeft = getHoursLeftOfDay();
+        int percentLeft = 100 - getPercentOfCaloriesConsumed();
+
         if (itemsConsumed.isEmpty())
             tip = "You haven't eaten today? Get your metabolism started when you wake up. ";
+        else if (hoursLeft >= 8 && percentLeft < 35)
+            tip = "You're eating quite fast! You might want to slow down, the day is long.";
+
+
 
         return tip;
     }
