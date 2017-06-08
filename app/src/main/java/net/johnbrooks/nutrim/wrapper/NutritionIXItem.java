@@ -65,6 +65,8 @@ public class NutritionIXItem
                 return R.drawable.food_muffin;
             else if (nameLowerCase.contains("pancake"))
                 return R.drawable.food_pancakes;
+            else if (nameLowerCase.contains("bread"))
+                return R.drawable.food_bread;
         }
 
         return R.drawable.food_flat;
