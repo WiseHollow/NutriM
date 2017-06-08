@@ -56,6 +56,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
 
         instance = this;
         MyApplicationContexts.getLatestContextWrapper(HomeActivity.this);
@@ -83,6 +89,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+
+        if (Profile.getProfile() != null)
+            Profile.getProfile().save(HomeActivity.this);
     }
 
     public void refreshCaloriesToday()
@@ -117,6 +126,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             iv_food.setImageResource(ixItem.getPictureID());
             tv_calories.setText("" + ixItem.getCalories());
             layout_consumed.addView(foodLayout);
+        }
+
+        refreshTip();
+    }
+
+    private void refreshTip()
+    {
+        TextView tv_tip = (TextView) findViewById(R.id.homeActivity_textView_tip);
+        if (tv_tip != null && Profile.getProfile() != null)
+        {
+            tv_tip.setText(Profile.getProfile().getTip());
         }
     }
 

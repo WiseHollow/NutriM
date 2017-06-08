@@ -30,7 +30,7 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 app:donut_finished_color="#45C675"
-                android:layout_margin="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center|center_vertical"
                 app:donut_progress="0"
                 />
@@ -56,11 +56,13 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="55dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="0.9"
                 >
 
                 <LinearLayout
@@ -78,54 +80,52 @@
 
             </ScrollView>
 
+            <TextView
+                android:id="@+id/homeActivity_textView_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textSize="14dp"
+                android:text="Tip"
+                android:layout_gravity="center"
+                android:layout_weight="0.1"
+                />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:layout_weight="0.5">
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            >
 
             <Button
                 android:id="@+id/homeActivity_button_update"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
                 android:textColor="#fff"
                 android:text="Update"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.5"
                 />
             <Button
                 android:id="@+id/homeActivity_button_profile"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
                 android:textColor="#fff"
                 android:text="View Profile"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="30dp"
+                android:layout_weight="0.5"
                 />
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-        </LinearLayout>
-
-    </ScrollView>
 
 </LinearLayout>

@@ -81,6 +81,7 @@ public class Profile
 
         if (latestDayUsed == null || dateFormat.format(new Date()).equalsIgnoreCase(latestDayUsed))
         {
+            profile.setCaloriesToday(calories);
             Set<String> consumed = preferences.getStringSet("consumed", new HashSet<String>());
             for (String s: consumed)
             {
@@ -89,8 +90,9 @@ public class Profile
                     profile.getItemsConsumed().add(ixItem);
             }
         }
+        else
+            profile.setCaloriesToday(0);
 
-        profile.setCaloriesToday(calories);
         if (latestDayUsed != null)
             profile.setLatestDayUsed(latestDayUsed);
         if (measurementSystem != null)
@@ -275,7 +277,7 @@ public class Profile
         editor.putString("birthday", birthdayString);
         editor.putString("measurement", measurementSystem.name());
         editor.putInt("calories", getCaloriesToday());
-        editor.putString("latestDayUsed", getLatestDayUsed());
+        editor.putString("latestDayUsed", dateFormat.format(new Date()));
 
         Set<String> itemsConsumedStrings = new HashSet<>();
         for (NutritionIXItem ixItem : itemsConsumed)
@@ -308,6 +310,16 @@ public class Profile
     public void setLatestDayUsed(String latestDayUsed)
     {
         this.latestDayUsed = latestDayUsed;
+    }
+
+    public String getTip()
+    {
+        String tip = "";
+
+        if (itemsConsumed.isEmpty())
+            tip = "You haven't eaten today? Get your metabolism started when you wake up. ";
+
+        return tip;
     }
 
     public enum MeasurementSystem
