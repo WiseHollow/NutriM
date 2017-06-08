@@ -197,7 +197,7 @@ public class Profile
     {
         int[] measures = new int[2];
         measures[0] = getHeightFeet();
-        measures[1] = getHeightCm() % measures[0];
+        measures[1] = getHeightFeet() % measures[0];
         return measures;
     }
 
