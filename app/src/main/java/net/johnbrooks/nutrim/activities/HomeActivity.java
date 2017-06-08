@@ -109,6 +109,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (today != 0 && max != 0)
         {
             int progress = (int) (100 * ((float)today / (float) max));
+            if (progress > 100)
+                progress = 100;
             //dp_caloriesProgress.setProgress(progress);
             applyProgress(progress);
         }
