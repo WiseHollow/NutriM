@@ -1,5 +1,6 @@
 package net.johnbrooks.nutrim.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -120,7 +121,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         LinearLayout layout_consumed = (LinearLayout) findViewById(R.id.myProfileActivity_layout_foodIcons);
         layout_consumed.removeAllViews();
-        for (NutritionIXItem ixItem : Profile.getProfile().getItemsConsumed())
+        for (final NutritionIXItem ixItem : Profile.getProfile().getItemsConsumed())
         {
             LinearLayout foodLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.widget_food_icon, null);
             ImageView iv_food = (ImageView) foodLayout.findViewById(R.id.widget_food_icon_imageView);
@@ -128,6 +129,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             iv_food.setImageResource(ixItem.getPictureID());
             tv_calories.setText("" + ixItem.getCalories());
             layout_consumed.addView(foodLayout);
+
+            foodLayout.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openDetails(ixItem);
+                }
+            });
         }
 
         refreshTip();
@@ -171,6 +181,36 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         timer.schedule(doAsynchronousTask, 0); //execute in every 50000 ms
+    }
+
+    private void openDetails(final NutritionIXItem item)
+    {
+        final Dialog dialog = new Dialog(HomeActivity.this);
+        dialog.setContentView(R.layout.dialog_item_details);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        TextView tv_name = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_foodName);
+        TextView tv_brand = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_brand);
+        TextView tv_servingSize = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_servingSize);
+        TextView tv_calories = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_calories);
+        ImageView iv_food = (ImageView) dialog.findViewById(R.id.dialog_item_details_iv_food);
+
+        tv_name.setText(item.getName());
+        tv_brand.setText(item.getBrand());
+        tv_servingSize.setText(item.getServingSize());
+        tv_calories.setText("" + item.getCalories());
+        iv_food.setImageResource(item.getPictureID());
+
+        dialog.findViewById(R.id.dialog_item_details_button_okay).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
     }
 
     @Override
