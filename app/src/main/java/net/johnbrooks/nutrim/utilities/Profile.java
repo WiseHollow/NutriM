@@ -338,7 +338,7 @@ public class Profile
 
     public String getTip()
     {
-        String tip = "";
+        String tip = null;
 
         int hoursLeft = getHoursLeftOfDay();
         int percentLeft = 100 - getPercentOfCaloriesConsumed();

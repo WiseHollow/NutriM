@@ -148,7 +148,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         TextView tv_tip = (TextView) findViewById(R.id.homeActivity_textView_tip);
         if (tv_tip != null && Profile.getProfile() != null)
         {
-            tv_tip.setText(Profile.getProfile().getTip());
+            tv_tip.setText(Profile.getProfile().getTip() != null ? Profile.getProfile().getTip() : "Items Today\n\n");
         }
     }
 
