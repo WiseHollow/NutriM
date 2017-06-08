@@ -132,12 +132,4 @@ public class SettingsActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    @Override
-    public void finish()
-    {
-        super.finish();
-        if (HomeActivity.getInstance() != null)
-            HomeActivity.getInstance().refreshCaloriesToday();
-    }
 }
