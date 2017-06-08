@@ -1,9 +1,7 @@
 package net.johnbrooks.nutrim.utilities;
 
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v4.content.res.ResourcesCompat;
-import android.util.Log;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 

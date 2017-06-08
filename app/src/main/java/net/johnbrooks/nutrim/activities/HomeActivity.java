@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,7 +25,6 @@ import net.johnbrooks.nutrim.utilities.Profile;
 import net.johnbrooks.nutrim.utilities.TaskUpdateProgressBar;
 import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,7 +38,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private TextView tv_caloriesToday;
     private DonutProgress dp_caloriesProgress;
-    public DonutProgress getDp_caloriesProgress() { return dp_caloriesProgress; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

@@ -5,13 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.Profile;
-import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
 public class MyProfileActivity extends AppCompatActivity
 {
