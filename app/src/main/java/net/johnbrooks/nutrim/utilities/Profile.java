@@ -10,11 +10,14 @@ import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -86,9 +89,9 @@ public class Profile
             Set<String> consumed = preferences.getStringSet("consumed", new HashSet<String>());
             for (String s: consumed)
             {
-                NutritionIXItem ixItem = NutritionIXItem.serialize(s);
-                if (ixItem != null)
-                    profile.getItemsConsumed().add(ixItem);
+                Map.Entry<NutritionIXItem, Integer> entry = NutritionIXItem.serialize(s);
+                if (entry != null && entry.getKey() != null)
+                    profile.getItemsConsumed().put(entry.getKey(), entry.getValue());
             }
         }
         else
@@ -108,7 +111,8 @@ public class Profile
 
     private String latestDayUsed;
 
-    private List<NutritionIXItem> itemsConsumed;
+    //private List<NutritionIXItem> itemsConsumed;
+    private HashMap<NutritionIXItem, Integer> itemsConsumed;
     private int caloriesToday;
     private int caloriesDailyMax;
 
@@ -123,7 +127,8 @@ public class Profile
         this.caloriesToday = 0;
         this.caloriesDailyMax = calculateDailyCalorieNeeds();
         this.measurementSystem = MeasurementSystem.METRIC;
-        this.itemsConsumed = new ArrayList<>();
+        //this.itemsConsumed = new ArrayList<>();
+        this.itemsConsumed = new HashMap<>();
         this.latestDayUsed = dateFormat.format(new Date());
     }
 
@@ -152,17 +157,20 @@ public class Profile
         return caloriesToday;
     }
 
-    public List<NutritionIXItem> getItemsConsumed() { return itemsConsumed; }
+    public HashMap<NutritionIXItem, Integer> getItemsConsumed() { return itemsConsumed; }
 
     public void setCaloriesToday(int caloriesToday)
     {
         this.caloriesToday = caloriesToday;
     }
 
-    public void addCaloriesToday(NutritionIXItem item)
+    public void addCaloriesToday(NutritionIXItem item, int amount)
     {
-        itemsConsumed.add(item);
-        caloriesToday += item.getCalories();
+        if (itemsConsumed.containsKey(item))
+            itemsConsumed.put(item, amount + itemsConsumed.get(item));
+        else
+            itemsConsumed.put(item, amount);
+        caloriesToday += item.getCalories() * amount;
     }
 
     public int getWeightKg()
@@ -281,8 +289,13 @@ public class Profile
         editor.putString("latestDayUsed", dateFormat.format(new Date()));
 
         Set<String> itemsConsumedStrings = new HashSet<>();
-        for (NutritionIXItem ixItem : itemsConsumed)
-            itemsConsumedStrings.add(ixItem.toSaveString());
+        //for (NutritionIXItem ixItem : itemsConsumed)
+        //    itemsConsumedStrings.add(ixItem.toSaveString());
+        for (NutritionIXItem ixItem : itemsConsumed.keySet())
+        {
+            Integer amount = itemsConsumed.get(ixItem);
+            itemsConsumedStrings.add(ixItem.toSaveString() + "." + amount);
+        }
         editor.putStringSet("consumed", itemsConsumedStrings);
 
         editor.commit();

@@ -122,6 +122,33 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantity:"
+            android:textStyle="bold"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/dialog_item_details_tv_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Value"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
     <Button
         android:id="@+id/dialog_item_details_button_okay"
         android:layout_width="match_parent"

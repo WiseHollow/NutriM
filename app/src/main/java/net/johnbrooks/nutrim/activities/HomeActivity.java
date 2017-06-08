@@ -26,6 +26,7 @@ import net.johnbrooks.nutrim.utilities.Profile;
 import net.johnbrooks.nutrim.utilities.TaskUpdateProgressBar;
 import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -121,13 +122,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         LinearLayout layout_consumed = (LinearLayout) findViewById(R.id.myProfileActivity_layout_foodIcons);
         layout_consumed.removeAllViews();
-        for (final NutritionIXItem ixItem : Profile.getProfile().getItemsConsumed())
+        for (final NutritionIXItem ixItem : Profile.getProfile().getItemsConsumed().keySet())
         {
+            final int amount = Profile.getProfile().getItemsConsumed().get(ixItem);
+
             LinearLayout foodLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.widget_food_icon, null);
             ImageView iv_food = (ImageView) foodLayout.findViewById(R.id.widget_food_icon_imageView);
             TextView tv_calories = (TextView) foodLayout.findViewById(R.id.widget_food_icon_textView);
             iv_food.setImageResource(ixItem.getPictureID());
-            tv_calories.setText("" + ixItem.getCalories());
+            tv_calories.setText("" + (ixItem.getCalories() * amount));
             layout_consumed.addView(foodLayout);
 
             foodLayout.setOnClickListener(new View.OnClickListener()
@@ -135,7 +138,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onClick(View v)
                 {
-                    openDetails(ixItem);
+                    openDetails(ixItem, amount);
                 }
             });
         }
@@ -183,7 +186,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         timer.schedule(doAsynchronousTask, 0); //execute in every 50000 ms
     }
 
-    private void openDetails(final NutritionIXItem item)
+    private void openDetails(final NutritionIXItem item, final Integer amount)
     {
         final Dialog dialog = new Dialog(HomeActivity.this);
         dialog.setContentView(R.layout.dialog_item_details);
@@ -193,12 +196,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         TextView tv_brand = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_brand);
         TextView tv_servingSize = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_servingSize);
         TextView tv_calories = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_calories);
+        TextView tv_amount = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_quantity);
         ImageView iv_food = (ImageView) dialog.findViewById(R.id.dialog_item_details_iv_food);
 
         tv_name.setText(item.getName());
         tv_brand.setText(item.getBrand());
         tv_servingSize.setText(item.getServingSize());
         tv_calories.setText("" + item.getCalories());
+        tv_amount.setText("" + amount);
         iv_food.setImageResource(item.getPictureID());
 
         dialog.findViewById(R.id.dialog_item_details_button_okay).setOnClickListener(new View.OnClickListener()

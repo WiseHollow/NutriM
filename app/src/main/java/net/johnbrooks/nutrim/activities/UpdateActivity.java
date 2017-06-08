@@ -43,6 +43,7 @@ public class UpdateActivity extends AppCompatActivity
     }
 
     private EditText et_search;
+    private EditText et_quantity;
     private LinearLayout ll_searchContents;
 
     private List<RadioButton> radioButtonList;
@@ -69,6 +70,7 @@ public class UpdateActivity extends AppCompatActivity
         selectedItem = null;
 
         et_search = (EditText) findViewById(R.id.updateActivity_editText_search);
+        et_quantity = (EditText) findViewById(R.id.updateActivity_editText_quantity);
         ll_searchContents = (LinearLayout) findViewById(R.id.updateActivity_linearLayout_searchContents);
         findViewById(R.id.updateActivity_button_search).setOnClickListener(new View.OnClickListener()
         {
@@ -125,7 +127,7 @@ public class UpdateActivity extends AppCompatActivity
             Profile profile = Profile.getProfile();
             if (profile != null)
             {
-                profile.addCaloriesToday(selectedItem);
+                profile.addCaloriesToday(selectedItem, Integer.parseInt(et_quantity.getText().toString()));
                 profile.save(MyApplicationContexts.getLatestContextWrapper(UpdateActivity.getInstance()));
             }
             return true;
