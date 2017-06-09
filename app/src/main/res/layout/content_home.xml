@@ -90,6 +90,7 @@
                 android:text="Tip"
                 android:layout_gravity="center"
                 android:layout_weight="0.1"
+                android:gravity="center"
                 />
 
         </LinearLayout>
