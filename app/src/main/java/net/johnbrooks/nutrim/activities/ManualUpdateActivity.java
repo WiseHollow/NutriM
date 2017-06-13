@@ -1,7 +1,9 @@
 package net.johnbrooks.nutrim.activities;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,6 +30,16 @@ public class ManualUpdateActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_update);
+
+        //
+        // Prepare back button
+        //
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        // Gets
 
         et_foodName = (EditText) findViewById(R.id.manualUpdateActivity_editText_foodName);
         et_brand = (EditText) findViewById(R.id.manualUpdateActivity_editText_brand);
@@ -71,5 +83,18 @@ public class ManualUpdateActivity extends AppCompatActivity
                 finish();
             }
         };
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
