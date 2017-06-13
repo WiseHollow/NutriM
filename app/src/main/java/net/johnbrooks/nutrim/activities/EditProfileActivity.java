@@ -87,6 +87,13 @@ public class EditProfileActivity extends AppCompatActivity
                 int height = Integer.parseInt(et_height.getText().toString());
                 int weight = Integer.parseInt(et_weight.getText().toString());
 
+                if (fullName.equalsIgnoreCase("") || height == 0 || weight == 0)
+                {
+                    Toast toast = Toast.makeText(EditProfileActivity.this, "Invalid inputs", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
                 Profile profile = Profile.getProfile();
                 if (profile != null)
                 {
