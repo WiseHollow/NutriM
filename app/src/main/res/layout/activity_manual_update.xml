@@ -47,11 +47,11 @@
                     android:id="@+id/manualUpdateActivity_editText_foodName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Apple Pie"
-                    android:textStyle="bold"
-                    android:textSize="14dp"
                     android:layout_alignParentEnd="true"
-                    />
+                    android:hint="Apple Pie"
+                    android:singleLine="true"
+                    android:textSize="14dp"
+                    android:textStyle="bold"/>
 
             </RelativeLayout>
 
@@ -74,11 +74,11 @@
                     android:id="@+id/manualUpdateActivity_editText_brand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Publix (Optional)"
-                    android:textStyle="bold"
-                    android:textSize="14dp"
                     android:layout_alignParentEnd="true"
-                    />
+                    android:hint="Publix (Optional)"
+                    android:singleLine="true"
+                    android:textSize="14dp"
+                    android:textStyle="bold"/>
 
             </RelativeLayout>
 
@@ -101,11 +101,11 @@
                     android:id="@+id/manualUpdateActivity_editText_servingSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="1 Cup (Optional)"
-                    android:textStyle="bold"
-                    android:textSize="14dp"
                     android:layout_alignParentEnd="true"
-                    />
+                    android:hint="1 Cup (Optional)"
+                    android:singleLine="true"
+                    android:textSize="14dp"
+                    android:textStyle="bold"/>
 
             </RelativeLayout>
 
@@ -128,12 +128,12 @@
                     android:id="@+id/manualUpdateActivity_editText_calories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
-                    android:textStyle="bold"
-                    android:textSize="14dp"
                     android:layout_alignParentEnd="true"
                     android:inputType="number"
-                    />
+                    android:singleLine="true"
+                    android:text="10"
+                    android:textSize="14dp"
+                    android:textStyle="bold"/>
 
             </RelativeLayout>
 
@@ -156,12 +156,12 @@
                     android:id="@+id/manualUpdateActivity_editText_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textStyle="bold"
-                    android:textSize="14dp"
                     android:layout_alignParentEnd="true"
                     android:inputType="number"
-                    />
+                    android:singleLine="true"
+                    android:text="1"
+                    android:textSize="14dp"
+                    android:textStyle="bold"/>
 
             </RelativeLayout>
 
