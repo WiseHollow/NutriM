@@ -37,6 +37,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private TextView tv_caloriesToday;
+    private TextView tv_percentCaloriesToday;
     private DonutProgress dp_caloriesProgress;
 
     @Override
@@ -66,6 +67,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         MyApplicationContexts.getLatestContextWrapper(HomeActivity.this);
 
         tv_caloriesToday = (TextView) findViewById(R.id.homeActivity_textView_CaloriesToday);
+        tv_percentCaloriesToday = (TextView) findViewById(R.id.homeActivity_textView_CaloriesTodayPercent);
         dp_caloriesProgress = (DonutProgress) findViewById(R.id.donut_progress);
         refreshCaloriesToday();
 
@@ -111,6 +113,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             if (progress > 100)
                 progress = 100;
             //dp_caloriesProgress.setProgress(progress);
+            tv_percentCaloriesToday.setText(progress + "%");
             applyProgress(progress);
         }
         else
