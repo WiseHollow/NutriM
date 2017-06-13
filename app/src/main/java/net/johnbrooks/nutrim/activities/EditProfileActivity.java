@@ -93,8 +93,8 @@ public class EditProfileActivity extends AppCompatActivity
                 if (profile != null)
                 {
                     profile.setFullName(fullName);
-                    profile.setWeightKg((int) (profile.getMeasurementSystem() == Profile.MeasurementSystem.METRIC ? weight : ((float) weight * 0.45359237f)));
-                    profile.setHeightCm((int) (profile.getMeasurementSystem() == Profile.MeasurementSystem.METRIC ? height : (float) height / 0.393701f));
+                    profile.setWeightLbs(weight);
+                    profile.setHeightInches(height);
                 }
 
                 profile.save(EditProfileActivity.this);

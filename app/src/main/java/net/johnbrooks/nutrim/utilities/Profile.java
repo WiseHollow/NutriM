@@ -30,7 +30,7 @@ public class Profile
     {
         return profile;
     }
-    public static Profile createProfile(String name, Date birthday, int weightKg, int heightCm)
+    public static Profile createProfile(String name, Date birthday, float weightKg, float heightCm)
     {
         profile = new Profile(name, birthday, weightKg, heightCm);
         return profile;
@@ -42,13 +42,27 @@ public class Profile
             Log.d("Profile", "Failed to load profile. LatestContextWrapper is null.");
             return null;
         }
+
         SharedPreferences preferences = MyApplicationContexts.getSharedPreferences();
 
-        String fullName = preferences.getString("fullName", null);
-        int weightKg = preferences.getInt("weight", 0);
-        int heightCm = preferences.getInt("height", 0);
-        int calories = preferences.getInt("calories", 0);
-        String birthdayString = preferences.getString("birthday", null);
+        String fullName;
+        float weightKg;
+        float heightCm;
+        int calories;
+        String birthdayString;
+
+        try
+        {
+            fullName = preferences.getString("fullName", null);
+            weightKg = preferences.getFloat("weight", 0);
+            heightCm = preferences.getFloat("height", 0);
+            calories = preferences.getInt("calories", 0);
+            birthdayString = preferences.getString("birthday", null);
+        }
+        catch (Exception ex)
+        {
+            throw new ProfileLoadException("Could not load saved data from configuration.");
+        }
 
         MeasurementSystem measurementSystem;
         try
@@ -103,8 +117,8 @@ public class Profile
 
     private String fullName;
     private Date birthday;
-    private int weightKg;
-    private int heightCm;
+    private float weightKg;
+    private float heightCm;
 
     private String latestDayUsed;
 
@@ -115,7 +129,7 @@ public class Profile
 
     private MeasurementSystem measurementSystem;
 
-    private Profile(String fullName, Date birthday, int weightKg, int heightCm)
+    private Profile(String fullName, Date birthday, float weightKg, float heightCm)
     {
         this.fullName = fullName;
         this.birthday = birthday;
@@ -170,47 +184,60 @@ public class Profile
         caloriesToday += item.getCalories() * amount;
     }
 
-    public int getWeightKg()
+    public float getWeightKg()
     {
         return weightKg;
     }
 
-    public void setWeightKg(int weightKg)
+    public void setWeightKg(float weightKg)
     {
         this.weightKg = weightKg;
     }
 
-    public int getHeightCm()
+    public void setWeightLbs(int weightLbs)
+    {
+        weightKg = ((float) weightLbs / 2.20462f);
+    }
+
+    public float getHeightCm()
     {
         return heightCm;
     }
 
-    public void setHeightCm(int heightCm)
+    public void setHeightCm(float heightCm)
     {
         this.heightCm = heightCm;
+    }
+
+    public void setHeightInches(float heightInches)
+    {
+        heightCm = (int) (heightInches * 2.54f);
     }
 
     public int[] getFeetAndInches()
     {
         int[] measures = new int[2];
         measures[0] = getHeightFeet();
-        measures[1] = getHeightFeet() % measures[0];
+        measures[1] = measures[0] != 0 ? getHeightFeet() % measures[0] : 0;
         return measures;
     }
 
     public int getHeightInches()
     {
-        return (int) (getHeightCm() * 0.393701f);
+        float i = (getHeightCm() * 0.393701f);
+        return (int) (Math.round(i * 100.0) / 100.0);
     }
 
     public int getHeightFeet()
     {
-        return (int) (getHeightCm() * 0.0328084f);
+        float h = (getHeightInches() * 0.0833333f);
+        return (int) (Math.round(h * 100.0) / 100.0);
     }
 
     public int getWeightLbs()
     {
-        return (int) (profile.getWeightKg() * 2.20462f);
+        float w = (getWeightKg() * 2.20462f);
+        return (int) (Math.round(w * 100.0) / 100.0);
     }
 
     public int getAge()
@@ -278,8 +305,8 @@ public class Profile
         String birthdayString = dateFormat.format(birthday);
 
         editor.putString("fullName", getFullName());
-        editor.putInt("height", getHeightCm());
-        editor.putInt("weight", getWeightKg());
+        editor.putFloat("height", getHeightCm());
+        editor.putFloat("weight", getWeightKg());
         editor.putString("birthday", birthdayString);
         editor.putString("measurement", measurementSystem.name());
         editor.putInt("calories", getCaloriesToday());
@@ -357,8 +384,6 @@ public class Profile
             tip = "You haven't eaten today? Get your metabolism started when you wake up. ";
         else if (hoursLeft >= 8 && percentLeft < 35)
             tip = "You're eating quite fast! You might want to slow down, the day is long.";
-
-
 
         return tip;
     }

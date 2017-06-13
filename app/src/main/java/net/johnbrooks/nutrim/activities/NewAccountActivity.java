@@ -71,8 +71,8 @@ public class NewAccountActivity extends AppCompatActivity
                     calendar.set(pickedYear, pickedMonth, pickedDay);
                     Date birthday = calendar.getTime();
 
-                    int weightKg = (int) (Integer.parseInt(et_weight.getText().toString()) * 0.45359237f);
-                    int heightCm = (int) (Integer.parseInt(et_height.getText().toString()) / 0.393701f);
+                    float weightKg = (Integer.parseInt(et_weight.getText().toString()) * 0.45359237f);
+                    float heightCm = (Integer.parseInt(et_height.getText().toString()) / 0.393701f);
 
                     Profile.MeasurementSystem measurementSystem = null;
                     try
