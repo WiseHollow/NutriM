@@ -87,14 +87,20 @@ public class EditProfileActivity extends AppCompatActivity
                 int height = Integer.parseInt(et_height.getText().toString());
                 int weight = Integer.parseInt(et_weight.getText().toString());
 
-                //TODO: Convert measurements
-
                 Profile profile = Profile.getProfile();
                 if (profile != null)
                 {
                     profile.setFullName(fullName);
-                    profile.setWeightLbs(weight);
-                    profile.setHeightInches(height);
+                    if (profile.getMeasurementSystem() == Profile.MeasurementSystem.IMPERIAL)
+                    {
+                        profile.setWeightLbs(weight);
+                        profile.setHeightInches(height);
+                    }
+                    else
+                    {
+                        profile.setWeightKg(weight);
+                        profile.setHeightCm(height);
+                    }
                 }
 
                 profile.save(EditProfileActivity.this);
