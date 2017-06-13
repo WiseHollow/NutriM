@@ -211,7 +211,8 @@ public class Profile
 
     public void setHeightInches(float heightInches)
     {
-        heightCm = (int) (heightInches * 2.54f);
+        float h = (heightInches * 2.54f);
+        heightCm = (Math.round(h * 100.0f) / 100.0f);
     }
 
     public int[] getFeetAndInches()
