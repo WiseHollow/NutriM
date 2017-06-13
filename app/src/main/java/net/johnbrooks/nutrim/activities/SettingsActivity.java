@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Spinner;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
@@ -31,25 +32,38 @@ public class SettingsActivity extends AppCompatActivity
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        // Create button actions
-
-        findViewById(R.id.settingsActivity_button_clearFood).setOnClickListener(new View.OnClickListener()
+        Profile profile = Profile.getProfile();
+        if (profile == null)
         {
-            @Override
-            public void onClick(View v)
-            {
-                openClearFoodConfirmation();
-            }
-        });
-
-        findViewById(R.id.settingsActivity_button_resetProfile).setOnClickListener(new View.OnClickListener()
+            Log.d(EditProfileActivity.class.getSimpleName(), "Profile is null. Exiting activity...");
+            finish();
+        }
+        else
         {
-            @Override
-            public void onClick(View v)
+            // Create button actions
+
+            findViewById(R.id.settingsActivity_button_clearFood).setOnClickListener(new View.OnClickListener()
             {
-                openResetProfileConfirmation();
-            }
-        });
+                @Override
+                public void onClick(View v)
+                {
+                    openClearFoodConfirmation();
+                }
+            });
+
+            findViewById(R.id.settingsActivity_button_resetProfile).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openResetProfileConfirmation();
+                }
+            });
+
+            Spinner measurementSpinner = (Spinner) findViewById(R.id.settingsActivity_spinner_measurement);
+            Profile.MeasurementSystem m = profile.getMeasurementSystem();
+            measurementSpinner.setSelection(m.ordinal());
+        }
     }
 
     private void openClearFoodConfirmation()
