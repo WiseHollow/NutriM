@@ -1,6 +1,7 @@
 package net.johnbrooks.nutrim.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -92,6 +93,17 @@ public class UpdateActivity extends AppCompatActivity
                 }
 
                 return false;
+            }
+        });
+
+        findViewById(R.id.updateActivity_button_manual).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(UpdateActivity.this, ManualUpdateActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

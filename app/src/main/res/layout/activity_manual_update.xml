@@ -42,7 +42,7 @@
                 android:id="@+id/manualUpdateActivity_editText_foodName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Value"
+                android:hint="Apple Pie"
                 android:textStyle="bold"
                 android:textSize="14dp"
                 android:layout_alignParentEnd="true"
@@ -69,7 +69,7 @@
                 android:id="@+id/manualUpdateActivity_editText_brand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Value"
+                android:hint="Publix (Optional)"
                 android:textStyle="bold"
                 android:textSize="14dp"
                 android:layout_alignParentEnd="true"
@@ -96,7 +96,7 @@
                 android:id="@+id/manualUpdateActivity_editText_servingSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Value"
+                android:hint="1 Cup (Optional)"
                 android:textStyle="bold"
                 android:textSize="14dp"
                 android:layout_alignParentEnd="true"
@@ -123,10 +123,11 @@
                 android:id="@+id/manualUpdateActivity_editText_calories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Value"
+                android:text="10"
                 android:textStyle="bold"
                 android:textSize="14dp"
                 android:layout_alignParentEnd="true"
+                android:inputType="number"
                 />
 
         </RelativeLayout>
@@ -150,10 +151,11 @@
                 android:id="@+id/manualUpdateActivity_editText_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Value"
+                android:text="1"
                 android:textStyle="bold"
                 android:textSize="14dp"
                 android:layout_alignParentEnd="true"
+                android:inputType="number"
                 />
 
         </RelativeLayout>
