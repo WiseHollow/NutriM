@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.johnbrooks.nutrim.activities.EditProfileActivity"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32dp"
+        android:text="Edit Profile"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Full Name"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:id="@+id/editProfileActivity_et_fullName"
+                    android:gravity="end"
+                    android:layout_width="wrap_content"
+                    android:minWidth="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="Value"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="16dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/editProfileActivity_tv_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Height"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    />
+
+
+                <EditText
+                    android:id="@+id/editProfileActivity_et_height"
+                    android:layout_width="wrap_content"
+                    android:minWidth="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="end"
+                    android:inputType="number"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/editProfileActivity_tv_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weight"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    />
+
+
+
+                <EditText
+                    android:id="@+id/editProfileActivity_et_weight"
+                    android:layout_width="wrap_content"
+                    android:minWidth="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:inputType="number"
+                    android:textSize="16dp"
+                    android:gravity="end"
+                    android:layout_alignParentEnd="true"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Birthday"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:id="@+id/editProfileActivity_et_birthday"
+                    android:layout_width="wrap_content"
+                    android:minWidth="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="Value"
+                    android:gravity="end"
+                    android:textSize="16dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:enabled="false"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Age"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:id="@+id/editProfileActivity_et_age"
+                    android:minWidth="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Value"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="16dp"
+                    android:gravity="end"
+                    android:layout_gravity="end"
+                    android:enabled="false"
+                    />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="1dp"
+                android:background="#333"
+                android:layout_margin="15dp"/>
+
+
+
+            <Button
+                android:id="@+id/editProfileActivity_button_finish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:textColor="#fff"
+                android:text="Finish"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

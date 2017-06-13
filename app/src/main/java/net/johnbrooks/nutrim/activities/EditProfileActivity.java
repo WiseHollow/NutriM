@@ -1,0 +1,123 @@
+package net.johnbrooks.nutrim.activities;
+
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.utilities.Profile;
+
+public class EditProfileActivity extends AppCompatActivity
+{
+    private EditText et_fullName;
+    private EditText et_height;
+    private EditText et_weight;
+    private EditText et_birthday;
+    private EditText et_age;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_profile);
+
+        //
+        // Prepare back button
+        //
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        //
+
+        Profile profile = Profile.getProfile();
+        if (profile == null)
+        {
+            Log.d(EditProfileActivity.class.getSimpleName(), "Profile is null. Exiting activity...");
+            finish();
+        }
+        else
+        {
+            et_fullName = (EditText) findViewById(R.id.editProfileActivity_et_fullName);
+            et_height = (EditText) findViewById(R.id.editProfileActivity_et_height);
+            et_weight = (EditText) findViewById(R.id.editProfileActivity_et_weight);
+            et_birthday = (EditText) findViewById(R.id.editProfileActivity_et_birthday);
+            et_age = (EditText) findViewById(R.id.editProfileActivity_et_age);
+            findViewById(R.id.editProfileActivity_button_finish).setOnClickListener(onClickFinish());
+
+            et_fullName.setText(profile.getFullName());
+
+            if (profile.getMeasurementSystem() == Profile.MeasurementSystem.IMPERIAL)
+            {
+                ((TextView) findViewById(R.id.editProfileActivity_tv_height)).setText("Height (Inches)");
+                ((TextView) findViewById(R.id.editProfileActivity_tv_weight)).setText("Weight (Lbs)");
+
+                et_height.setText(profile.getHeightInches() + "");
+                et_weight.setText(profile.getWeightLbs() + "");
+            }
+            else if (profile.getMeasurementSystem() == Profile.MeasurementSystem.METRIC)
+            {
+                ((TextView) findViewById(R.id.editProfileActivity_tv_height)).setText("Height (Cm)");
+                ((TextView) findViewById(R.id.editProfileActivity_tv_weight)).setText("Weight (Kg)");
+
+                et_height.setText("" + profile.getHeightCm() + "");
+                et_weight.setText(profile.getWeightKg() + "");
+            }
+
+            et_birthday.setText(Profile.dateFormat.format(profile.getBirthday()));
+            et_age.setText("" + profile.getAge());
+        }
+    }
+
+    private View.OnClickListener onClickFinish()
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String fullName = et_fullName.getText().toString();
+                int height = Integer.parseInt(et_height.getText().toString());
+                int weight = Integer.parseInt(et_weight.getText().toString());
+
+                //TODO: Convert measurements
+
+                Profile profile = Profile.getProfile();
+                if (profile != null)
+                {
+                    profile.setFullName(fullName);
+                    profile.setWeightKg((int) (profile.getMeasurementSystem() == Profile.MeasurementSystem.METRIC ? weight : ((float) weight * 0.45359237f)));
+                    profile.setHeightCm((int) (profile.getMeasurementSystem() == Profile.MeasurementSystem.METRIC ? height : (float) height / 0.393701f));
+                }
+
+                profile.save(EditProfileActivity.this);
+                finish();
+                if (MyProfileActivity.getInstance() != null)
+                {
+                    Toast toast = Toast.makeText(MyProfileActivity.getInstance(), "Profile saved!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        };
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+}
