@@ -76,7 +76,7 @@ public class ManualUpdateActivity extends AppCompatActivity
                     int quantity = Integer.parseInt(et_quantity.getText().toString());
 
                     NutritionIXItem item = new NutritionIXItem("manual", name, brand, calories, servingSize);
-                    profile.getItemsConsumed().put(item, quantity);
+                    profile.addCaloriesToday(item, quantity);
                     profile.save(ManualUpdateActivity.this);
                 }
 
