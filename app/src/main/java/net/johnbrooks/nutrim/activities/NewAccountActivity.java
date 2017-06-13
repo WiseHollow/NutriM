@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
@@ -60,6 +62,33 @@ public class NewAccountActivity extends AppCompatActivity
 
         s_measurementSystem = (Spinner) findViewById(R.id.newAccountActivity_spinner_measurementSystem);
 
+        s_measurementSystem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                Profile.MeasurementSystem measurementSystem = Profile.MeasurementSystem.values()[position];
+                Log.d(NewAccountActivity.class.getSimpleName(), measurementSystem.name());
+
+                if (measurementSystem == Profile.MeasurementSystem.METRIC)
+                {
+                    et_weight.setHint("Weight (Kg)");
+                    et_height.setHint("Height (Cm)");
+                }
+                else
+                {
+                    et_weight.setHint("Weight (Lbs)");
+                    et_height.setHint("Height (Inches)");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
         findViewById(R.id.newAccountActivity_button_finish).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -71,9 +100,6 @@ public class NewAccountActivity extends AppCompatActivity
                     calendar.set(pickedYear, pickedMonth, pickedDay);
                     Date birthday = calendar.getTime();
 
-                    float weightKg = (Integer.parseInt(et_weight.getText().toString()) * 0.45359237f);
-                    float heightCm = (Integer.parseInt(et_height.getText().toString()) / 0.393701f);
-
                     Profile.MeasurementSystem measurementSystem = null;
                     try
                     {
@@ -84,6 +110,9 @@ public class NewAccountActivity extends AppCompatActivity
                         Log.d(NewAccountActivity.class.getSimpleName(), "Cannot convert spinner value to enum (" + s_measurementSystem.getSelectedItem().toString().toUpperCase() + ").");
                         ex.printStackTrace();
                     }
+
+                    float weightKg = Integer.parseInt(et_weight.getText().toString()) * (Profile.MeasurementSystem.IMPERIAL == measurementSystem ? 0.45359237f : 1);
+                    float heightCm = (Integer.parseInt(et_height.getText().toString()) / (Profile.MeasurementSystem.IMPERIAL == measurementSystem ? 0.393701f : 1));
 
                     DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                     String birthdayString = dateFormat.format(birthday);
