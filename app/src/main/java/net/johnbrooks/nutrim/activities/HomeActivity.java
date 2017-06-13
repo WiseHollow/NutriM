@@ -199,7 +199,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         TextView tv_amount = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_quantity);
         ImageView iv_food = (ImageView) dialog.findViewById(R.id.dialog_item_details_iv_food);
 
-        tv_name.setText(item.getName());
+        String itemName = item.getName().substring(0, Math.min(item.getName().length(), 30));
+
+        tv_name.setText(itemName);
         tv_brand.setText(item.getBrand());
         tv_servingSize.setText(item.getServingSize());
         tv_calories.setText("" + item.getCalories());
