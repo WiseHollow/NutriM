@@ -18,8 +18,6 @@ import net.johnbrooks.nutrim.utilities.Profile;
 
 public class SettingsActivity extends AppCompatActivity
 {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

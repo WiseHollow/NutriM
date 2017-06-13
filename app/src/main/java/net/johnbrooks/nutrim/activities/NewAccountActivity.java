@@ -13,7 +13,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
@@ -27,12 +26,12 @@ import java.util.concurrent.TimeUnit;
 
 public class NewAccountActivity extends AppCompatActivity
 {
-    private EditText et_fullname;
+    private EditText et_fullName;
     private EditText et_weight;
     private EditText et_height;
     private EditText et_birthday;
 
-    private ImageView iv_fullname;
+    private ImageView iv_fullName;
     private ImageView iv_weight;
     private ImageView iv_height;
     private ImageView iv_birthday;
@@ -50,12 +49,12 @@ public class NewAccountActivity extends AppCompatActivity
         setContentView(R.layout.activity_new_account);
         MyApplicationContexts.getLatestContextWrapper(NewAccountActivity.this);
 
-        et_fullname = (EditText) findViewById(R.id.newAccountActivity_editText_fullname);
+        et_fullName = (EditText) findViewById(R.id.newAccountActivity_editText_fullname);
         et_weight = (EditText) findViewById(R.id.newAccountActivity_editText_weightLbs);
         et_height = (EditText) findViewById(R.id.newAccountActivity_editText_heightInches);
         et_birthday = (EditText) findViewById(R.id.newAccountActivity_editText_birthday);
 
-        iv_fullname = (ImageView) findViewById(R.id.newAccountActivity_imageView_fullname);
+        iv_fullName = (ImageView) findViewById(R.id.newAccountActivity_imageView_fullname);
         iv_weight = (ImageView) findViewById(R.id.newAccountActivity_imageView_weightLbs);
         iv_height = (ImageView) findViewById(R.id.newAccountActivity_imageView_heightInches);
         iv_birthday = (ImageView) findViewById(R.id.newAccountActivity_imageView_birthday);
@@ -118,12 +117,12 @@ public class NewAccountActivity extends AppCompatActivity
                     String birthdayString = dateFormat.format(birthday);
 
                     Log.d(NewAccountActivity.class.getSimpleName(), "Saving profile...");
-                    Log.d(NewAccountActivity.class.getSimpleName(), "Full name: " + et_fullname.getText().toString());
+                    Log.d(NewAccountActivity.class.getSimpleName(), "Full name: " + et_fullName.getText().toString());
                     Log.d(NewAccountActivity.class.getSimpleName(), "Height (cm): " + heightCm);
                     Log.d(NewAccountActivity.class.getSimpleName(), "Weight (kg): " + weightKg);
                     Log.d(NewAccountActivity.class.getSimpleName(), "Birthday: " + birthdayString);
 
-                    Profile profile = Profile.createProfile(et_fullname.getText().toString(), birthday, weightKg, heightCm);
+                    Profile profile = Profile.createProfile(et_fullName.getText().toString(), birthday, weightKg, heightCm);
                     if (measurementSystem != null)
                         profile.setMeasurementSystem(measurementSystem);
                     profile.save(NewAccountActivity.this);
@@ -143,7 +142,7 @@ public class NewAccountActivity extends AppCompatActivity
             }
         });
 
-        et_fullname.setOnKeyListener(new View.OnKeyListener()
+        et_fullName.setOnKeyListener(new View.OnKeyListener()
         {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event)
@@ -227,14 +226,14 @@ public class NewAccountActivity extends AppCompatActivity
 
     private boolean checkFullName()
     {
-        if (et_fullname.getText().toString().length() <= 3)
+        if (et_fullName.getText().toString().length() <= 3)
         {
-            iv_fullname.setBackgroundResource(R.drawable.ic_highlight_off_black_24dp);
+            iv_fullName.setBackgroundResource(R.drawable.ic_highlight_off_black_24dp);
             return false;
         }
         else
         {
-            iv_fullname.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
+            iv_fullName.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
             return true;
         }
     }
