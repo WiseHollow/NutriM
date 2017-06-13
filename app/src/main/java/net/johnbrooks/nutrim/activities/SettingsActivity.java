@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
@@ -32,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Profile profile = Profile.getProfile();
+        final Profile profile = Profile.getProfile();
         if (profile == null)
         {
             Log.d(EditProfileActivity.class.getSimpleName(), "Profile is null. Exiting activity...");
@@ -63,6 +65,32 @@ public class SettingsActivity extends AppCompatActivity
             Spinner measurementSpinner = (Spinner) findViewById(R.id.settingsActivity_spinner_measurement);
             Profile.MeasurementSystem m = profile.getMeasurementSystem();
             measurementSpinner.setSelection(m.ordinal());
+
+            measurementSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+            {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                {
+                    if (position < Profile.MeasurementSystem.values().length)
+                    {
+                        Profile.MeasurementSystem measurementSystem = Profile.MeasurementSystem.values()[position];
+                        if (measurementSystem != profile.getMeasurementSystem())
+                        {
+                            profile.setMeasurementSystem(measurementSystem);
+                            profile.save(SettingsActivity.this);
+
+                            Toast toast = Toast.makeText(SettingsActivity.this, "Updated measurement system!", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent)
+                {
+
+                }
+            });
         }
     }
 
