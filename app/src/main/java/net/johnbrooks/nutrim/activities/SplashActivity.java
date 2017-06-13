@@ -44,13 +44,13 @@ public class SplashActivity extends Activity
             }
         }, 2500);
 
-        Log.d(SplashActivity.class.getSimpleName(), "Loading profile from file.");
-        try
-        {
-            Profile.loadProfile();
-        } catch (ProfileLoadException e)
-        {
-            e.printStackTrace();
-        }
+        //Log.d(SplashActivity.class.getSimpleName(), "Loading profile from file.");
+        //try
+        //{
+        //    Profile.loadProfile();
+        //} catch (ProfileLoadException e)
+        //{
+        //    e.printStackTrace();
+        //}
     }
 }

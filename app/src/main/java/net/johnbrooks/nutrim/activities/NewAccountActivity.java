@@ -67,7 +67,6 @@ public class NewAccountActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 Profile.MeasurementSystem measurementSystem = Profile.MeasurementSystem.values()[position];
-                Log.d(NewAccountActivity.class.getSimpleName(), measurementSystem.name());
 
                 if (measurementSystem == Profile.MeasurementSystem.METRIC)
                 {

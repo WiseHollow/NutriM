@@ -391,6 +391,6 @@ public class Profile
 
     public enum MeasurementSystem
     {
-        METRIC, IMPERIAL
+        IMPERIAL, METRIC
     }
 }
