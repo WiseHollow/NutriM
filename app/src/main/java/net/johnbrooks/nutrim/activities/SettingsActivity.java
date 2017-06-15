@@ -96,7 +96,7 @@ public class SettingsActivity extends AppCompatActivity
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
         builder.setCancelable(true)
-                .setTitle("Clear Today's Meals")
+                .setTitle("Clear All Meals")
                 .setMessage("Are you sure?\nThis action cannot be undone.")
                 .setNegativeButton("Nope", new DialogInterface.OnClickListener()
                 {
