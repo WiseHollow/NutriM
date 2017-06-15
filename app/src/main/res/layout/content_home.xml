@@ -93,7 +93,7 @@
                 >
 
                 <LinearLayout
-                    android:id="@+id/myProfileActivity_layout_foodIcons"
+                    android:id="@+id/homeActivity_layout_foodIcons"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"

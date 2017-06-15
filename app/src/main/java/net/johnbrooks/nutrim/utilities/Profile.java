@@ -49,6 +49,7 @@ public class Profile
         float weightKg;
         float heightCm;
         int calories;
+        int caloriesThisWeek;
         String birthdayString;
 
         try
@@ -57,6 +58,7 @@ public class Profile
             weightKg = preferences.getFloat("weight", 0);
             heightCm = preferences.getFloat("height", 0);
             calories = preferences.getInt("calories", 0);
+            caloriesThisWeek = preferences.getInt("caloriesThisWeek", 0);
             birthdayString = preferences.getString("birthday", null);
         }
         catch (Exception ex)
@@ -102,11 +104,29 @@ public class Profile
             {
                 Map.Entry<NutritionIXItem, Integer> entry = NutritionIXItem.serialize(s);
                 if (entry != null && entry.getKey() != null)
-                    profile.getItemsConsumed().put(entry.getKey(), entry.getValue());
+                    profile.pushFoodEntry(entry.getKey(), entry.getValue());
             }
         }
         else
             profile.setCaloriesToday(0);
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        boolean monday = cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY;
+        if (latestDayUsed == null || (!monday && dateFormat.format(new Date()).equalsIgnoreCase(latestDayUsed)))
+        {
+            profile.getLog().setCaloriesThisWeek(caloriesThisWeek);
+            Set<String> consumed = preferences.getStringSet("consumedLog", new HashSet<String>());
+            for (String s: consumed)
+            {
+                Map.Entry<NutritionIXItem, Integer> entry = NutritionIXItem.serialize(s);
+                if (entry != null && entry.getKey() != null)
+                    profile.getLog().pushFoodEntry(entry.getKey(), entry.getValue());
+            }
+        }
+        else
+            profile.getLog().setCaloriesThisWeek(0);
 
         if (latestDayUsed != null)
             profile.setLatestDayUsed(latestDayUsed);
@@ -129,6 +149,8 @@ public class Profile
 
     private MeasurementSystem measurementSystem;
 
+    private ProfileLog log;
+
     private Profile(String fullName, Date birthday, float weightKg, float heightCm)
     {
         this.fullName = fullName;
@@ -141,6 +163,7 @@ public class Profile
         //this.itemsConsumed = new ArrayList<>();
         this.itemsConsumed = new HashMap<>();
         this.latestDayUsed = dateFormat.format(new Date());
+        this.log = new ProfileLog();
     }
 
     public String getFullName()
@@ -170,6 +193,11 @@ public class Profile
 
     public HashMap<NutritionIXItem, Integer> getItemsConsumed() { return itemsConsumed; }
 
+    public void pushFoodEntry(NutritionIXItem item, int amount)
+    {
+        itemsConsumed.put(item, amount);
+    }
+
     public void setCaloriesToday(int caloriesToday)
     {
         this.caloriesToday = caloriesToday;
@@ -182,6 +210,8 @@ public class Profile
         else
             itemsConsumed.put(item, amount);
         caloriesToday += item.getCalories() * amount;
+
+        log.record(item, amount);
     }
 
     public float getWeightKg()
@@ -269,7 +299,7 @@ public class Profile
         fullName = null;
         caloriesToday = 0;
         caloriesDailyMax = 0;
-        getItemsConsumed().clear();
+        itemsConsumed.clear();
         itemsConsumed = null;
         birthday = null;
         weightKg = 0;
@@ -311,6 +341,7 @@ public class Profile
         editor.putString("birthday", birthdayString);
         editor.putString("measurement", measurementSystem.name());
         editor.putInt("calories", getCaloriesToday());
+        editor.putInt("caloriesThisWeek", getLog().getCaloriesThisWeek());
         editor.putString("latestDayUsed", dateFormat.format(new Date()));
 
         Set<String> itemsConsumedStrings = new HashSet<>();
@@ -322,6 +353,14 @@ public class Profile
             itemsConsumedStrings.add(ixItem.toSaveString() + "." + amount);
         }
         editor.putStringSet("consumed", itemsConsumedStrings);
+
+        Set<String> itemsConsumedLogStrings = new HashSet<>();
+        for (NutritionIXItem ixItem : getLog().getItemsConsumed().keySet())
+        {
+            Integer amount = itemsConsumed.get(ixItem);
+            itemsConsumedLogStrings.add(ixItem.toSaveString() + "." + amount);
+        }
+        editor.putStringSet("consumedLog", itemsConsumedStrings);
 
         editor.commit();
     }
@@ -387,6 +426,11 @@ public class Profile
             tip = "You're eating quite fast! You might want to slow down, the day is long.";
 
         return tip;
+    }
+
+    public ProfileLog getLog()
+    {
+        return log;
     }
 
     public enum MeasurementSystem

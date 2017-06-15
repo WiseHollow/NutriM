@@ -8,7 +8,6 @@ import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -120,7 +119,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             dp_caloriesProgress.setProgress(0);
         dp_caloriesProgress.invalidate();
 
-        LinearLayout layout_consumed = (LinearLayout) findViewById(R.id.myProfileActivity_layout_foodIcons);
+        LinearLayout layout_consumed = (LinearLayout) findViewById(R.id.homeActivity_layout_foodIcons);
         layout_consumed.removeAllViews();
         for (final NutritionIXItem ixItem : Profile.getProfile().getItemsConsumed().keySet())
         {

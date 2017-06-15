@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.Profile;
+import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
 public class MyProfileActivity extends AppCompatActivity
 {
@@ -52,6 +55,7 @@ public class MyProfileActivity extends AppCompatActivity
 
         instance = this;
         refreshActivityContent();
+        refreshCaloriesToday();
     }
 
     public boolean refreshActivityContent()
@@ -93,6 +97,20 @@ public class MyProfileActivity extends AppCompatActivity
             tv_age.setText("" + profile.getAge());
 
             return true;
+        }
+    }
+
+    public void refreshCaloriesToday()
+    {
+        if (Profile.getProfile() != null)
+        {
+            LinearLayout layout_consumed = (LinearLayout) findViewById(R.id.myProfileActivity_layout_foodIcons);
+            layout_consumed.removeAllViews();
+
+            for (LinearLayout layout : Profile.getProfile().getLog().getBreakdown())
+            {
+                layout_consumed.addView(layout);
+            }
         }
     }
 
