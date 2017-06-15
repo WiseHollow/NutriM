@@ -1,6 +1,16 @@
 package net.johnbrooks.nutrim.wrapper;
 
+import android.app.Dialog;
+import android.content.ContextWrapper;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.activities.HomeActivity;
+import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
 
 import java.util.AbstractMap;
 import java.util.Map;
@@ -97,5 +107,45 @@ public class NutritionIXItem
     public String toString()
     {
         return "ID: " + id + '\n' + "Name: " + name + '\n' + "Brand: " + brand + '\n' + "Calories: " + calories + '\n' + "Serving Size: " + servingSize;
+    }
+
+    public void openDetails(final ContextWrapper wrapper, final Integer amount)
+    {
+        if (MyApplicationContexts.getLatestContextWrapper(wrapper) == null)
+        {
+            Log.d(NutritionIXItem.class.getSimpleName(), "Cannot open details due to null ContextWrapper.");
+            return;
+        }
+
+        final Dialog dialog = new Dialog(MyApplicationContexts.getLatestContextWrapper(wrapper));
+        dialog.setContentView(R.layout.dialog_item_details);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        TextView tv_name = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_foodName);
+        TextView tv_brand = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_brand);
+        TextView tv_servingSize = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_servingSize);
+        TextView tv_calories = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_calories);
+        TextView tv_amount = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_quantity);
+        ImageView iv_food = (ImageView) dialog.findViewById(R.id.dialog_item_details_iv_food);
+
+        String itemName = getName().substring(0, Math.min(getName().length(), 30));
+
+        tv_name.setText(itemName);
+        tv_brand.setText(getBrand());
+        tv_servingSize.setText(getServingSize());
+        tv_calories.setText("" + getCalories());
+        tv_amount.setText("" + amount);
+        iv_food.setImageResource(getPictureID());
+
+        dialog.findViewById(R.id.dialog_item_details_button_okay).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
     }
 }

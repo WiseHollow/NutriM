@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.Profile;
+import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
 public class MyProfileActivity extends AppCompatActivity
 {
@@ -107,9 +108,27 @@ public class MyProfileActivity extends AppCompatActivity
 
             if (!Profile.getProfile().getLog().getBreakdown().isEmpty())
             {
-                for (LinearLayout layout : Profile.getProfile().getLog().getBreakdown())
+                final NutritionIXItem[] items = Profile.getProfile().getLog().getItemsConsumed().keySet().toArray(new NutritionIXItem[Profile.getProfile().getLog().getItemsConsumed().keySet().size()]);
+                final Integer[] amounts = Profile.getProfile().getLog().getItemsConsumed().values().toArray(new Integer[Profile.getProfile().getLog().getItemsConsumed().values().size()]);
+
+                for (int i = 0; i < Profile.getProfile().getLog().getBreakdown().size(); i++)
                 {
+                    final int index = i;
+                    LinearLayout layout = Profile.getProfile().getLog().getBreakdown().get(i);
                     layout_consumed.addView(layout);
+                    layout.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            if (index <= items.length)
+                            {
+                                NutritionIXItem ixItem = items[index];
+                                if (ixItem != null)
+                                    ixItem.openDetails(MyProfileActivity.this, amounts[index]);
+                            }
+                        }
+                    });
                 }
             }
             else

@@ -111,7 +111,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             int progress = (int) (100 * ((float)today / (float) max));
             if (progress > 100)
                 progress = 100;
-            //dp_caloriesProgress.setProgress(progress);
             tv_percentCaloriesToday.setText(progress + "%");
             applyProgress(progress);
         }
@@ -137,7 +136,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onClick(View v)
                 {
-                    openDetails(ixItem, amount);
+                    ixItem.openDetails(HomeActivity.this, amount);
                 }
             });
         }
@@ -183,40 +182,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         timer.schedule(doAsynchronousTask, 0); //execute in every 50000 ms
-    }
-
-    private void openDetails(final NutritionIXItem item, final Integer amount)
-    {
-        final Dialog dialog = new Dialog(HomeActivity.this);
-        dialog.setContentView(R.layout.dialog_item_details);
-        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        TextView tv_name = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_foodName);
-        TextView tv_brand = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_brand);
-        TextView tv_servingSize = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_servingSize);
-        TextView tv_calories = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_calories);
-        TextView tv_amount = (TextView) dialog.findViewById(R.id.dialog_item_details_tv_quantity);
-        ImageView iv_food = (ImageView) dialog.findViewById(R.id.dialog_item_details_iv_food);
-
-        String itemName = item.getName().substring(0, Math.min(item.getName().length(), 30));
-
-        tv_name.setText(itemName);
-        tv_brand.setText(item.getBrand());
-        tv_servingSize.setText(item.getServingSize());
-        tv_calories.setText("" + item.getCalories());
-        tv_amount.setText("" + amount);
-        iv_food.setImageResource(item.getPictureID());
-
-        dialog.findViewById(R.id.dialog_item_details_button_okay).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                dialog.cancel();
-            }
-        });
-
-        dialog.show();
     }
 
     @Override
