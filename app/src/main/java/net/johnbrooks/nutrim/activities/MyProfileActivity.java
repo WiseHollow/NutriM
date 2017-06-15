@@ -7,13 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.johnbrooks.nutrim.R;
 import net.johnbrooks.nutrim.utilities.Profile;
-import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
 public class MyProfileActivity extends AppCompatActivity
 {
@@ -55,7 +53,7 @@ public class MyProfileActivity extends AppCompatActivity
 
         instance = this;
         refreshActivityContent();
-        refreshCaloriesToday();
+        refreshListOfConsumedGoods();
     }
 
     public boolean refreshActivityContent()
@@ -100,16 +98,25 @@ public class MyProfileActivity extends AppCompatActivity
         }
     }
 
-    public void refreshCaloriesToday()
+    public void refreshListOfConsumedGoods()
     {
         if (Profile.getProfile() != null)
         {
             LinearLayout layout_consumed = (LinearLayout) findViewById(R.id.myProfileActivity_layout_foodIcons);
             layout_consumed.removeAllViews();
 
-            for (LinearLayout layout : Profile.getProfile().getLog().getBreakdown())
+            if (!Profile.getProfile().getLog().getBreakdown().isEmpty())
             {
-                layout_consumed.addView(layout);
+                for (LinearLayout layout : Profile.getProfile().getLog().getBreakdown())
+                {
+                    layout_consumed.addView(layout);
+                }
+            }
+            else
+            {
+                TextView tv_nothing = new TextView(MyProfileActivity.this);
+                tv_nothing.setText("Nothing to show yet.");
+                layout_consumed.addView(tv_nothing);
             }
         }
     }

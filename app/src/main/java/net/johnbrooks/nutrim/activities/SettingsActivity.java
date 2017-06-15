@@ -114,9 +114,10 @@ public class SettingsActivity extends AppCompatActivity
                         Profile profile = Profile.getProfile();
                         if (profile != null)
                         {
-                            Log.d(SettingsActivity.class.getSimpleName(), "Clearing today's meals...");
+                            Log.d(SettingsActivity.class.getSimpleName(), "Clearing all meals...");
                             profile.setCaloriesToday(0);
                             profile.getItemsConsumed().clear();
+                            profile.getLog().getItemsConsumed().clear();
                             profile.save(MyApplicationContexts.getLatestContextWrapper(SettingsActivity.this));
                         }
                     }
