@@ -172,10 +172,11 @@ public class UpdateActivity extends AppCompatActivity
                 TextView itemName = (TextView) layout.findViewById(R.id.widget_updateResult_itemName);
                 TextView calories = (TextView) layout.findViewById(R.id.widget_updateResult_caloriesTextView);
                 TextView brand = (TextView) layout.findViewById(R.id.widget_updateResult_brandTextView);
-                String shortItemName = item.getName().substring(0, Math.min(item.getName().length(), 30));
+                String shortItemName = item.getName().substring(0, Math.min(item.getName().length(), 20));
+                String shortBrand = item.getBrand().substring(0, Math.min(item.getBrand().length(), 20));
                 itemName.setText(shortItemName);
                 calories.setText("Calories: " + item.getCalories());
-                brand.setText("Brand: " + item.getBrand());
+                brand.setText("Brand: " + shortBrand);
                 picture.setImageResource(item.getPictureID());
                 ll_searchContents.addView(layout);
 
