@@ -3,6 +3,7 @@ package net.johnbrooks.nutrim.activities;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -48,41 +49,41 @@ public class ManualUpdateActivity extends AppCompatActivity
         et_quantity = (EditText) findViewById(R.id.manualUpdateActivity_editText_quantity);
 
         iv_food = (ImageView) findViewById(R.id.manualUpdateActivity_imageView_food);
-
-        findViewById(R.id.manualUpdateActivity_button_add).setOnClickListener(onClickAdd());
     }
 
-    private View.OnClickListener onClickAdd()
+    private boolean onClickAdd()
     {
-        return new View.OnClickListener()
+        if (Objects.equals(et_foodName.getText().toString(), "") || Objects.equals(et_quantity.getText().toString(), "0"))
         {
-            @Override
-            public void onClick(View v)
-            {
-                if (Objects.equals(et_foodName.getText().toString(), "") || Objects.equals(et_quantity.getText().toString(), "0"))
-                {
-                    Toast toast = Toast.makeText(ManualUpdateActivity.this, "Please fill in required fields", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
+            Toast toast = Toast.makeText(ManualUpdateActivity.this, "Please fill in required fields", Toast.LENGTH_SHORT);
+            toast.show();
+            return false;
+        }
 
-                Profile profile = Profile.getProfile();
-                if (profile != null)
-                {
-                    String name = et_foodName.getText().toString();
-                    String brand = et_brand.getText().toString();
-                    String servingSize = et_servingSize.getText().toString();
-                    int calories = Integer.parseInt(et_calories.getText().toString());
-                    int quantity = Integer.parseInt(et_quantity.getText().toString());
+        Profile profile = Profile.getProfile();
+        if (profile != null)
+        {
+            String name = et_foodName.getText().toString();
+            String brand = et_brand.getText().toString();
+            String servingSize = et_servingSize.getText().toString();
+            int calories = Integer.parseInt(et_calories.getText().toString());
+            int quantity = Integer.parseInt(et_quantity.getText().toString());
 
-                    NutritionIXItem item = new NutritionIXItem("manual", name, brand, calories, servingSize);
-                    profile.addCaloriesToday(item, quantity);
-                    profile.save(ManualUpdateActivity.this);
-                }
+            NutritionIXItem item = new NutritionIXItem("manual", name, brand, calories, servingSize);
+            profile.addCaloriesToday(item, quantity);
+            profile.save(ManualUpdateActivity.this);
+        }
 
-                finish();
-            }
-        };
+        finish();
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.update, menu);
+        return true;
     }
 
     @Override
@@ -93,6 +94,8 @@ public class ManualUpdateActivity extends AppCompatActivity
             case android.R.id.home:
                 this.finish();
                 return true;
+            case R.id.action_done:
+                return onClickAdd();
             default:
                 return super.onOptionsItemSelected(item);
         }

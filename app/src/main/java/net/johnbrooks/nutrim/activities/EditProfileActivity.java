@@ -67,8 +67,8 @@ public class EditProfileActivity extends AppCompatActivity
                 ((TextView) findViewById(R.id.editProfileActivity_tv_height)).setText("Height (Cm)");
                 ((TextView) findViewById(R.id.editProfileActivity_tv_weight)).setText("Weight (Kg)");
 
-                et_height.setText("" + profile.getHeightCm() + "");
-                et_weight.setText(profile.getWeightKg() + "");
+                et_height.setText("" + ((int) profile.getHeightCm()) + "");
+                et_weight.setText(((int) profile.getWeightKg()) + "");
             }
 
             et_birthday.setText(Profile.dateFormat.format(profile.getBirthday()));

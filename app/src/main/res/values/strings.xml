@@ -8,7 +8,7 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="measurementSystem">
-        <item>Imperial</item>
-        <item>Metric</item>
+        <item>Imperial (Lbs/Inches)</item>
+        <item>Metric (Kg, Cm)</item>
     </string-array>
 </resources>
