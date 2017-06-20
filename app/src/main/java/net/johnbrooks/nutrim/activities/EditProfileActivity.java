@@ -84,8 +84,8 @@ public class EditProfileActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 String fullName = et_fullName.getText().toString();
-                int height = Integer.parseInt(et_height.getText().toString());
-                int weight = Integer.parseInt(et_weight.getText().toString());
+                float height = Float.parseFloat(et_height.getText().toString());
+                float weight = Float.parseFloat(et_weight.getText().toString());
 
                 if (fullName.equalsIgnoreCase("") || height == 0 || weight == 0)
                 {
@@ -98,9 +98,9 @@ public class EditProfileActivity extends AppCompatActivity
                 if (profile != null)
                 {
                     profile.setFullName(fullName);
-                    if (profile.getMeasurementSystem() == Profile.MeasurementSystem.IMPERIAL)
+                    if (Profile.MeasurementSystem.IMPERIAL == profile.getMeasurementSystem())
                     {
-                        profile.setWeightLbs(weight);
+                        profile.setWeightLbs((int) weight);
                         profile.setHeightInches(height);
                     }
                     else
@@ -108,9 +108,9 @@ public class EditProfileActivity extends AppCompatActivity
                         profile.setWeightKg(weight);
                         profile.setHeightCm(height);
                     }
+                    profile.save(EditProfileActivity.this);
                 }
 
-                profile.save(EditProfileActivity.this);
                 finish();
                 if (MyProfileActivity.getInstance() != null)
                 {

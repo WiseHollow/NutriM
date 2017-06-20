@@ -10,6 +10,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import net.johnbrooks.nutrim.activities.UpdateActivity;
 import net.johnbrooks.nutrim.utilities.Network;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -140,12 +141,16 @@ public class NutritionIXQuery extends AsyncTask<String, Void, List<NutritionIXIt
                     .header("X-Mashape-Key", "1T5HvJ99YUmsh0xoWLFk0mbwftMvp1nvlRLjsnWXTSwRlg3oFl")
                     .header("Accept", "application/json")
                     .asJson();
-
             NutritionIXSearchResponse node = new NutritionIXSearchResponse(response);
 
             if (node.getBodyDetails().getItems() != null && node.getBodyDetails().getItems().length > 0)
                 Collections.addAll(items, node.getBodyDetails().getItems());
+
+            response.getRawBody().close();
         } catch (UnirestException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
         {
             e.printStackTrace();
         }
