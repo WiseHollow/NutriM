@@ -25,6 +25,7 @@ import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 import net.johnbrooks.nutrim.wrapper.NutritionIXQuery;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UpdateActivity extends AppCompatActivity
@@ -162,6 +163,7 @@ public class UpdateActivity extends AppCompatActivity
         }
         else
         {
+            Collections.sort(queryResults);
             //
             // Add widgets for each result returned from query.
             //

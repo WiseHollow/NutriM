@@ -2,6 +2,7 @@ package net.johnbrooks.nutrim.wrapper;
 
 import android.app.Dialog;
 import android.content.ContextWrapper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +20,7 @@ import java.util.Map;
  * Created by John on 5/30/2017.
  */
 
-public class NutritionIXItem
+public class NutritionIXItem implements Comparable
 {
     public static Map.Entry<NutritionIXItem, Integer> serialize(String serial)
     {
@@ -147,5 +148,15 @@ public class NutritionIXItem
         });
 
         dialog.show();
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o)
+    {
+        if (o instanceof NutritionIXItem)
+            //return ((NutritionIXItem) o).getName().compareTo(getName());
+        return getName().compareTo(((NutritionIXItem) o).getName());
+        else
+            return 0;
     }
 }
