@@ -211,7 +211,6 @@
         android:id="@+id/myProfileActivity_button_editProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2196F3"
         android:textColor="#fff"
         android:text="Edit Profile"
         android:layout_marginTop="2dp"

@@ -22,6 +22,7 @@ public class SettingsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        MyApplicationContexts.refreshActivityTheme(SettingsActivity.this);
         setContentView(R.layout.activity_settings);
 
         //
@@ -60,6 +61,10 @@ public class SettingsActivity extends AppCompatActivity
                 }
             });
 
+            Spinner themeSpinner = (Spinner) findViewById(R.id.settingsActivity_theme);
+            Profile.Theme t = profile.getTheme();
+            themeSpinner.setSelection(t.ordinal());
+
             Spinner measurementSpinner = (Spinner) findViewById(R.id.settingsActivity_spinner_measurement);
             Profile.MeasurementSystem m = profile.getMeasurementSystem();
             measurementSpinner.setSelection(m.ordinal());
@@ -79,6 +84,42 @@ public class SettingsActivity extends AppCompatActivity
 
                             Toast toast = Toast.makeText(SettingsActivity.this, "Updated measurement system!", Toast.LENGTH_SHORT);
                             toast.show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent)
+                {
+
+                }
+            });
+
+            themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+            {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                {
+                    if (position < Profile.Theme.values().length)
+                    {
+                        Profile.Theme theme = Profile.Theme.values()[position];
+                        if (!theme.name().equalsIgnoreCase(profile.getTheme().name()))
+                        {
+                            profile.setTheme(theme);
+                            profile.save(SettingsActivity.this);
+
+                            Toast toast = Toast.makeText(SettingsActivity.this, "Updated application theme!", Toast.LENGTH_SHORT);
+                            toast.show();
+
+                            if (theme == Profile.Theme.LIGHT)
+                                getApplicationContext().setTheme(R.style.LightTheme);
+                            else if (theme == Profile.Theme.DARK)
+                                getApplicationContext().setTheme(R.style.DarkTheme);
+
+                            //activity.startActivity(new Intent(activity, activity.getClass()));
+                            finish();
+                            HomeActivity.getInstance().finish();
+
                         }
                     }
                 }

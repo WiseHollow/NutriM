@@ -126,24 +126,24 @@
             android:layout_marginBottom="20dp"
             >
 
+
             <Button
                 android:id="@+id/homeActivity_button_update"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#2196F3"
                 android:textColor="#fff"
                 android:text="Update"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="0.5"
                 />
+
             <Button
                 android:id="@+id/homeActivity_button_profile"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#2196F3"
                 android:textColor="#fff"
-                android:text="View Profile"
+                android:text="Profile"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="30dp"
                 android:layout_weight="0.5"

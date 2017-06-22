@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
 import net.johnbrooks.nutrim.utilities.Profile;
 import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
@@ -23,6 +24,7 @@ public class MyProfileActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        MyApplicationContexts.refreshActivityTheme(MyProfileActivity.this);
         setContentView(R.layout.activity_my_profile);
 
         //

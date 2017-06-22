@@ -46,6 +46,7 @@ public class NewAccountActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        MyApplicationContexts.refreshActivityTheme(NewAccountActivity.this);
         setContentView(R.layout.activity_new_account);
         MyApplicationContexts.getLatestContextWrapper(NewAccountActivity.this);
 

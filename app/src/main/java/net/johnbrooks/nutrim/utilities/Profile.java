@@ -75,6 +75,15 @@ public class Profile
         {
             throw new ProfileLoadException("Metric system saved is not valid.");
         }
+        Theme theme;
+        try
+        {
+            theme = Theme.valueOf(preferences.getString("theme", "LIGHT"));
+        }
+        catch (Exception ex)
+        {
+            throw new ProfileLoadException("Theme saved is not valid.");
+        }
 
         if (fullName == null || birthdayString == null)
         {
@@ -132,6 +141,8 @@ public class Profile
             profile.setLatestDayUsed(latestDayUsed);
         if (measurementSystem != null)
             profile.setMeasurementSystem(measurementSystem);
+        if (theme != null)
+            profile.setTheme(theme);
         return profile;
     }
 
@@ -148,6 +159,7 @@ public class Profile
     private int caloriesDailyMax;
 
     private MeasurementSystem measurementSystem;
+    private Theme theme;
 
     private ProfileLog log;
 
@@ -160,7 +172,7 @@ public class Profile
         this.caloriesToday = 0;
         this.caloriesDailyMax = calculateDailyCalorieNeeds();
         this.measurementSystem = MeasurementSystem.METRIC;
-        //this.itemsConsumed = new ArrayList<>();
+        this.theme = Theme.LIGHT;
         this.itemsConsumed = new HashMap<>();
         this.latestDayUsed = dateFormat.format(new Date());
         this.log = new ProfileLog();
@@ -306,6 +318,7 @@ public class Profile
         heightCm = 0;
         latestDayUsed = null;
         measurementSystem = null;
+        theme = null;
         profile = null;
 
         SharedPreferences preferences = MyApplicationContexts.getSharedPreferences();
@@ -315,6 +328,7 @@ public class Profile
         editor.remove("height");
         editor.remove("weight");
         editor.remove("birthday");
+        editor.remove("theme");
         editor.remove("measurement");
         editor.remove("calories");
         editor.remove("latestDayUsed");
@@ -340,6 +354,7 @@ public class Profile
         editor.putFloat("weight", getWeightKg());
         editor.putString("birthday", birthdayString);
         editor.putString("measurement", measurementSystem.name());
+        editor.putString("theme", theme.name());
         editor.putInt("calories", getCaloriesToday());
         editor.putInt("caloriesThisWeek", getLog().getCaloriesThisWeek());
         editor.putString("latestDayUsed", dateFormat.format(new Date()));
@@ -433,8 +448,23 @@ public class Profile
         return log;
     }
 
+    public Theme getTheme()
+    {
+        return theme;
+    }
+
+    public void setTheme(Theme theme)
+    {
+        this.theme = theme;
+    }
+
     public enum MeasurementSystem
     {
         IMPERIAL, METRIC
+    }
+
+    public enum Theme
+    {
+        LIGHT, DARK
     }
 }

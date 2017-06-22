@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
 import net.johnbrooks.nutrim.utilities.Profile;
 import net.johnbrooks.nutrim.wrapper.NutritionIXItem;
 
@@ -30,6 +30,7 @@ public class ManualUpdateActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        MyApplicationContexts.refreshActivityTheme(ManualUpdateActivity.this);
         setContentView(R.layout.activity_manual_update);
 
         //

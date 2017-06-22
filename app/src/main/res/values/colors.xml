@@ -4,13 +4,15 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#2196F3</color>
 
-    <color name="colorPrimary_Dark">#5D707F</color>
-    <color name="colorPrimaryDark_Dark">#2B2B2B</color>
-    <color name="colorAccent_Dark">#868786</color>
+    <color name="colorPrimary_Dark">#212121</color>
+    <color name="colorPrimaryDark_Dark">#0A0A0A</color>
+    <color name="colorAccent_Dark">#303030</color>
 
     <color name="progressGood">#66CED6</color>
     <color name="progressOkay">#6597D3</color>
     <color name="progressBad">#5E6DD1</color>
 
-    <color name="buttonPrimary">#66CED6</color>
+    <color name="buttonPrimary">#6CC469</color>
+    <color name="buttonPrimaryDark">#424242</color>
+    <color name="buttonPrimaryOld">#2196F3</color>
 </resources>

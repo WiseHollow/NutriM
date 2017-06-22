@@ -38,6 +38,7 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        MyApplicationContexts.refreshActivityTheme(HomeActivity.this);
         setContentView(R.layout.activity_home);
     }
 

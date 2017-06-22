@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.johnbrooks.nutrim.R;
+import net.johnbrooks.nutrim.utilities.MyApplicationContexts;
 import net.johnbrooks.nutrim.utilities.Profile;
 
 public class EditProfileActivity extends AppCompatActivity
@@ -25,6 +26,7 @@ public class EditProfileActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        MyApplicationContexts.refreshActivityTheme(EditProfileActivity.this);
         setContentView(R.layout.activity_edit_profile);
 
         //

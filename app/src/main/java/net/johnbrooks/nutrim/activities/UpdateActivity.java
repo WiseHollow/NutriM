@@ -53,6 +53,7 @@ public class UpdateActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        MyApplicationContexts.refreshActivityTheme(UpdateActivity.this);
         setContentView(R.layout.activity_update);
         //
         // Prepare back button

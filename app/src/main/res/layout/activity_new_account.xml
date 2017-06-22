@@ -154,7 +154,6 @@
                 android:id="@+id/newAccountActivity_button_finish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#2196F3"
                 android:textColor="#fff"
                 android:text="Let's Go"
                 android:layout_marginTop="20dp"

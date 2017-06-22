@@ -18,6 +18,18 @@
         />
 
     <Spinner
+        android:id="@+id/settingsActivity_theme"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:entries="@array/themes"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        >
+
+    </Spinner>
+
+    <Spinner
         android:id="@+id/settingsActivity_spinner_measurement"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -33,7 +45,6 @@
         android:id="@+id/settingsActivity_button_clearFood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2196F3"
         android:textColor="#fff"
         android:text="Clear recorded meals"
         android:layout_marginBottom="10dp"
@@ -44,7 +55,6 @@
         android:id="@+id/settingsActivity_button_resetProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2196F3"
         android:textColor="#fff"
         android:text="Reset your profile"
         android:layout_marginBottom="10dp"
